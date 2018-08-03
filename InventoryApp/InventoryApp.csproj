@@ -153,9 +153,21 @@
       <Project>{b4fc9d3a-5c6b-4490-9df7-db49489afede}</Project>
       <Name>InventoryDbLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ModulePurchase\ModulePurchase.csproj">
+      <Project>{db774c3b-c891-4c0e-a55f-bcfeac5becea}</Project>
+      <Name>ModulePurchase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModuleRetail\ModuleRetail.csproj">
+      <Project>{97af553f-db2e-4605-aafa-c4dc8ae57096}</Project>
+      <Name>ModuleRetail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModuleSetting\ModuleSetting.csproj">
       <Project>{8b905083-a9fa-46a0-acb6-6c9eb022db24}</Project>
       <Name>ModuleSetting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModuleWholesale\ModuleWholesale.csproj">
+      <Project>{f011d9e7-8f44-46e8-8db6-48143f5739fc}</Project>
+      <Name>ModuleWholesale</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

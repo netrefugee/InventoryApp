@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="ModuleSetting.Views.FarmerView"
+﻿<UserControl x:Class="ModulePurchase.Views.PurchaseView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <Label>FarmerView</Label>
+        <Label>purchase</Label>
     </Grid>
 </UserControl>

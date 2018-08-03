@@ -23,8 +23,9 @@ namespace InventoryApp.ViewModels
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-
+            
             NavigateCommand = new DelegateCommand<string>(Navigate);
+          
         }
 
         private void Navigate(string navigatePath)

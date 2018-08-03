@@ -7,6 +7,7 @@ using Prism.Unity;
 using System.IO;
 using InventoryApp.Views;
 
+
 namespace InventoryApp
 {
     class Bootstrapper : UnityBootstrapper
@@ -25,7 +26,11 @@ namespace InventoryApp
         {
             var moduleCatalog = (ModuleCatalog)ModuleCatalog;
             moduleCatalog.AddModule(typeof(ModuleSetting.ModuleSettingModule));
+            moduleCatalog.AddModule(typeof(ModulePurchase.ModulePurchaseModule));
+            moduleCatalog.AddModule(typeof(ModuleRetail.ModuleRetailModule));
+            moduleCatalog.AddModule(typeof(ModuleWholesale.ModuleWholesaleModule));
             //moduleCatalog.AddModule(typeof(ModuleSellModule));
+
         }
 
         //protected override IModuleCatalog CreateModuleCatalog()
