@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="ModuleSetting.Views.ClienterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Label>123123</Label>
+    </Grid>
+</UserControl>
