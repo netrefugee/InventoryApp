@@ -1,10 +1,14 @@
-﻿using Prism.Commands;
+﻿using InventoryApp.Services;
+using LinqToDB;
+using Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace InventoryApp.ViewModels
 {
@@ -17,6 +21,7 @@ namespace InventoryApp.ViewModels
             _regionManager = regionManager;
             
             NavigateCommand = new DelegateCommand<string>(Navigate);
+            TestCommand = new DelegateCommand<string>(Test);
         }
         // 标题
         private string _title = "Prism Unity Application";
@@ -32,6 +37,27 @@ namespace InventoryApp.ViewModels
             if (navigatePath != null)
                 _regionManager.RequestNavigate("ContentRegion", navigatePath);
         }
- 
+        // 测试命令
+        public DelegateCommand<string> TestCommand { get; private set; }
+        private void Test(string test)
+        {
+            //string path = Environment.CurrentDirectory+"\\Data\\InventoryData.xml";
+            //string storename = QueryXml.QueryElement(path, "storename");
+            //IEnumerable<XElement> huafei = QueryXml.QueryElementByAttr(path, "styleBig", "style", "化肥");
+
+            using (var db = new InventoryDB())
+            {
+                //var q =
+                //    from c in db.Goods
+                //    select c;
+
+                //foreach (var c in q)
+                //    Console.WriteLine(c.Style);
+
+                //db.Goods.Insert(() => new Good() { Name = "哈哈" });
+             
+            }
+        }
+
     }
 }

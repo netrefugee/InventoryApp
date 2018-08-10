@@ -30,6 +30,7 @@
         </Grid.ColumnDefinitions>
         <!--左边宽度-->
         <StackPanel Grid.Column="0"  Orientation="Vertical"  VerticalAlignment="Bottom">
+            <Button Command="{Binding TestCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="Test"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="FarmerView"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }"  CommandParameter="GoodsView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="MasterView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
@@ -43,6 +44,7 @@
 
 
         <DockPanel   Grid.Column="1"  >
+            
             <Grid DockPanel.Dock="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

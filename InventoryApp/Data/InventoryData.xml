@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<InventoryData>
+<goodsStyles>
+	<styleBig style="农药">
+		<value>种衣剂</value>
+		<value>杀虫剂</value>
+		<value>杀菌剂</value>
+		<value>除草剂</value>
+		<value>农药助剂</value>
+		<value>植物调节剂</value>
+		<value>公共卫生类</value>
+		<value>其他类农药</value>
+	</styleBig>
+  <styleBig style="种子">
+		<value>玉米</value>
+		<value>水稻</value>
+		<value>油料</value>
+		<value>谷物</value>
+		<value>蔬菜</value>
+		<value>其他类种子</value>
+	</styleBig>
+  <styleBig style="化肥">
+		<value>复合肥</value>
+		<value>惨混肥</value>
+		<value>缓控释肥</value>
+		<value>生物有机肥</value>
+		<value>叶面肥</value>
+		<value>徽肥</value>
+		<value>其他类化肥</value>
+	</styleBig>
+</goodsStyles>
+  <store>
+    <storename>吉丰庄稼医院</storename>
+    <address>东丰县</address>
+    <phone>13943722172</phone>
+    <creditCode>19203812093812093810</creditCode> 
+  </store>
+</InventoryData>

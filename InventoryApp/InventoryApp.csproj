@@ -96,6 +96,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Services\QueryXml.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -127,6 +128,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Data\Inventory.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
     <None Include="LinqToDB.Templates\DataModel.ttinclude" />
     <None Include="LinqToDB.Templates\EditableObject.ttinclude" />
@@ -153,7 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
     <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +185,9 @@
     <Resource Include="LinqToDB.Templates\CopyMe.SQLite.tt.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\goodsStyles.xml">
+    <None Include="Data\InventoryData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" />

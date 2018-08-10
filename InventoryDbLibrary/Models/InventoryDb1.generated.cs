@@ -24,10 +24,8 @@ namespace Models
 		public ITable<ClientAccount>   ClientAccounts   { get { return this.GetTable<ClientAccount>(); } }
 		public ITable<Farmer>          Farmers          { get { return this.GetTable<Farmer>(); } }
 		public ITable<Good>            Goods            { get { return this.GetTable<Good>(); } }
-		public ITable<GoodsBigUnit>    GoodsBigUnits    { get { return this.GetTable<GoodsBigUnit>(); } }
-		public ITable<GoodsSmallUnit>  GoodsSmallUnits  { get { return this.GetTable<GoodsSmallUnit>(); } }
-		public ITable<GoodsStyle>      GoodsStyles      { get { return this.GetTable<GoodsStyle>(); } }
 		public ITable<Log>             Logs             { get { return this.GetTable<Log>(); } }
+		public ITable<Master>          Masters          { get { return this.GetTable<Master>(); } }
 		public ITable<Purchase>        Purchases        { get { return this.GetTable<Purchase>(); } }
 		public ITable<Retail>          Retails          { get { return this.GetTable<Retail>(); } }
 		public ITable<Stock>           Stocks           { get { return this.GetTable<Stock>(); } }
@@ -77,7 +75,7 @@ namespace Models
 		public IEnumerable<ClientAccount> ClientAccounts { get; set; }
 
 		/// <summary>
-		/// FK_wholesale_0_0_BackReference
+		/// FK_wholesale_1_0_BackReference
 		/// </summary>
 		[Association(ThisKey="ClientID", OtherKey="ClientID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
 		public IEnumerable<Wholesale> Wholesales { get; set; }
@@ -120,7 +118,7 @@ namespace Models
 		#region Associations
 
 		/// <summary>
-		/// FK_retail_0_0_BackReference
+		/// FK_retail_1_0_BackReference
 		/// </summary>
 		[Association(ThisKey="FarmerID", OtherKey="FarmerID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
 		public IEnumerable<Retail> Retails { get; set; }
@@ -152,31 +150,13 @@ namespace Models
 		#region Associations
 
 		/// <summary>
-		/// FK_goods_1_0
-		/// </summary>
-		[Association(ThisKey="BigUnit", OtherKey="BigUnit", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_goods_1_0", BackReferenceName="Goods")]
-		public GoodsBigUnit GoodsBigUnit { get; set; }
-
-		/// <summary>
-		/// FK_goods_0_0
-		/// </summary>
-		[Association(ThisKey="SmallUnit", OtherKey="SmallUnit", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_goods_0_0", BackReferenceName="Goods")]
-		public GoodsSmallUnit GoodsSmallUnit { get; set; }
-
-		/// <summary>
-		/// FK_goods_2_0
-		/// </summary>
-		[Association(ThisKey="Style", OtherKey="Style", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_goods_2_0", BackReferenceName="Goods")]
-		public GoodsStyle GoodsStyle { get; set; }
-
-		/// <summary>
-		/// FK_purchase_1_0_BackReference
+		/// FK_purchase_2_0_BackReference
 		/// </summary>
 		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
 		public IEnumerable<Purchase> Purchases { get; set; }
 
 		/// <summary>
-		/// FK_retail_1_0_BackReference
+		/// FK_retail_2_0_BackReference
 		/// </summary>
 		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
 		public IEnumerable<Retail> Retails { get; set; }
@@ -188,59 +168,10 @@ namespace Models
 		public IEnumerable<Stock> Stocks { get; set; }
 
 		/// <summary>
-		/// FK_wholesale_1_0_BackReference
+		/// FK_wholesale_2_0_BackReference
 		/// </summary>
 		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
 		public IEnumerable<Wholesale> Wholesales { get; set; }
-
-		#endregion
-	}
-
-	[Table("goodsBigUnit")]
-	public partial class GoodsBigUnit
-	{
-		[Column("bigUnit"), PrimaryKey, NotNull] public string BigUnit { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_goods_1_0_BackReference
-		/// </summary>
-		[Association(ThisKey="BigUnit", OtherKey="BigUnit", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Good> Goods { get; set; }
-
-		#endregion
-	}
-
-	[Table("goodsSmallUnit")]
-	public partial class GoodsSmallUnit
-	{
-		[Column("smallUnit"), PrimaryKey, NotNull] public string SmallUnit { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_goods_0_0_BackReference
-		/// </summary>
-		[Association(ThisKey="SmallUnit", OtherKey="SmallUnit", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Good> Goods { get; set; }
-
-		#endregion
-	}
-
-	[Table("goodsStyle")]
-	public partial class GoodsStyle
-	{
-		[Column("style"),    PrimaryKey, NotNull] public string Style    { get; set; } // text(max)
-		[Column("styleBig"),             NotNull] public string StyleBig { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_goods_2_0_BackReference
-		/// </summary>
-		[Association(ThisKey="Style", OtherKey="Style", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Good> Goods { get; set; }
 
 		#endregion
 	}
@@ -254,13 +185,46 @@ namespace Models
 		[Column("logAction"),               NotNull] public string LogAction   { get; set; } // text(max)
 	}
 
+	[Table("master")]
+	public partial class Master
+	{
+		[Column("payee"),    PrimaryKey,  NotNull] public string Payee    { get; set; } // text(max)
+		[Column("phone"),                 NotNull] public string Phone    { get; set; } // text(max)
+		[Column("email"),       Nullable         ] public string Email    { get; set; } // text(max)
+		[Column("wechat"),      Nullable         ] public string Wechat   { get; set; } // text(max)
+		[Column("password"),              NotNull] public string Password { get; set; } // text(max)
+		[Column("username"),              NotNull] public string Username { get; set; } // text(max)
+
+		#region Associations
+
+		/// <summary>
+		/// FK_purchase_0_0_BackReference
+		/// </summary>
+		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<Purchase> Purchases { get; set; }
+
+		/// <summary>
+		/// FK_retail_0_0_BackReference
+		/// </summary>
+		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<Retail> Retails { get; set; }
+
+		/// <summary>
+		/// FK_wholesale_0_0_BackReference
+		/// </summary>
+		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<Wholesale> Wholesales { get; set; }
+
+		#endregion
+	}
+
 	[Table("purchase")]
 	public partial class Purchase
 	{
 		[Column("purchaseID"), PrimaryKey, Identity] public long   PurchaseID   { get; set; } // integer
 		[Column("code"),       NotNull             ] public string Code         { get; set; } // text(max)
 		[Column("datatime"),   NotNull             ] public string Datatime     { get; set; } // text(max)
-		[Column("masterName"), NotNull             ] public string MasterName   { get; set; } // text(max)
+		[Column("storeName"),  NotNull             ] public string StoreName    { get; set; } // text(max)
 		[Column("goodsID"),    NotNull             ] public long   GoodsID      { get; set; } // integer
 		[Column(),             NotNull             ] public double RealPrice    { get; set; } // real
 		[Column(),             NotNull             ] public double NumBigUnit   { get; set; } // real
@@ -268,19 +232,26 @@ namespace Models
 		[Column(),             NotNull             ] public double SumPrice     { get; set; } // real
 		[Column("isReturn"),   NotNull             ] public long   IsReturn     { get; set; } // integer
 		[Column("supplierID"), NotNull             ] public long   SupplierID   { get; set; } // integer
+		[Column("payee"),      NotNull             ] public string Payee        { get; set; } // text(max)
 
 		#region Associations
 
 		/// <summary>
-		/// FK_purchase_1_0
+		/// FK_purchase_2_0
 		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_1_0", BackReferenceName="Purchases")]
+		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_2_0", BackReferenceName="Purchases")]
 		public Good Good { get; set; }
 
 		/// <summary>
 		/// FK_purchase_0_0
 		/// </summary>
-		[Association(ThisKey="SupplierID", OtherKey="SupplierID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_0_0", BackReferenceName="Purchases")]
+		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_0_0", BackReferenceName="Purchases")]
+		public Master Master { get; set; }
+
+		/// <summary>
+		/// FK_purchase_1_0
+		/// </summary>
+		[Association(ThisKey="SupplierID", OtherKey="SupplierID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_1_0", BackReferenceName="Purchases")]
 		public Supplier Supplier { get; set; }
 
 		#endregion
@@ -289,31 +260,38 @@ namespace Models
 	[Table("retail")]
 	public partial class Retail
 	{
-		[Column("retailID"),   PrimaryKey, Identity] public long   RetailID     { get; set; } // integer
-		[Column("code"),       NotNull             ] public string Code         { get; set; } // text(max)
-		[Column("datatime"),   NotNull             ] public string Datatime     { get; set; } // text(max)
-		[Column("masterName"), NotNull             ] public string MasterName   { get; set; } // text(max)
-		[Column("goodsID"),    NotNull             ] public long   GoodsID      { get; set; } // integer
-		[Column(),             NotNull             ] public double RealPrice    { get; set; } // real
-		[Column(),             NotNull             ] public double NumBigUnit   { get; set; } // real
-		[Column(),             NotNull             ] public long   NumSmallUnit { get; set; } // integer
-		[Column(),             NotNull             ] public double SumPrice     { get; set; } // real
-		[Column("isReturn"),   NotNull             ] public long   IsReturn     { get; set; } // integer
-		[Column("farmerID"),   NotNull             ] public long   FarmerID     { get; set; } // integer
+		[Column("retailID"),  PrimaryKey, Identity] public long   RetailID     { get; set; } // integer
+		[Column("code"),      NotNull             ] public string Code         { get; set; } // text(max)
+		[Column("datatime"),  NotNull             ] public string Datatime     { get; set; } // text(max)
+		[Column("storeName"), NotNull             ] public string StoreName    { get; set; } // text(max)
+		[Column("goodsID"),   NotNull             ] public long   GoodsID      { get; set; } // integer
+		[Column(),            NotNull             ] public double RealPrice    { get; set; } // real
+		[Column(),            NotNull             ] public double NumBigUnit   { get; set; } // real
+		[Column(),            NotNull             ] public long   NumSmallUnit { get; set; } // integer
+		[Column(),            NotNull             ] public double SumPrice     { get; set; } // real
+		[Column("isReturn"),  NotNull             ] public long   IsReturn     { get; set; } // integer
+		[Column("farmerID"),  NotNull             ] public long   FarmerID     { get; set; } // integer
+		[Column("payee"),     NotNull             ] public string Payee        { get; set; } // text(max)
 
 		#region Associations
 
 		/// <summary>
-		/// FK_retail_0_0
+		/// FK_retail_1_0
 		/// </summary>
-		[Association(ThisKey="FarmerID", OtherKey="FarmerID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_0_0", BackReferenceName="Retails")]
+		[Association(ThisKey="FarmerID", OtherKey="FarmerID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_1_0", BackReferenceName="Retails")]
 		public Farmer Farmer { get; set; }
 
 		/// <summary>
-		/// FK_retail_1_0
+		/// FK_retail_2_0
 		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_1_0", BackReferenceName="Retails")]
+		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_2_0", BackReferenceName="Retails")]
 		public Good Good { get; set; }
+
+		/// <summary>
+		/// FK_retail_0_0
+		/// </summary>
+		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_0_0", BackReferenceName="Retails")]
+		public Master Master { get; set; }
 
 		#endregion
 	}
@@ -321,11 +299,11 @@ namespace Models
 	[Table("stock")]
 	public partial class Stock
 	{
-		[Column("stockID"),    PrimaryKey, Identity] public long   StockID      { get; set; } // integer
-		[Column("masterName"), NotNull             ] public string MasterName   { get; set; } // text(max)
-		[Column("goodsID"),    NotNull             ] public long   GoodsID      { get; set; } // integer
-		[Column(),             NotNull             ] public double NumBigUnit   { get; set; } // real
-		[Column(),             NotNull             ] public long   NumSmallUnit { get; set; } // integer
+		[Column("stockID"),   PrimaryKey, Identity] public long   StockID      { get; set; } // integer
+		[Column("storeName"), NotNull             ] public string StoreName    { get; set; } // text(max)
+		[Column("goodsID"),   NotNull             ] public long   GoodsID      { get; set; } // integer
+		[Column(),            NotNull             ] public double NumBigUnit   { get; set; } // real
+		[Column(),            NotNull             ] public long   NumSmallUnit { get; set; } // integer
 
 		#region Associations
 
@@ -357,7 +335,7 @@ namespace Models
 		#region Associations
 
 		/// <summary>
-		/// FK_purchase_0_0_BackReference
+		/// FK_purchase_1_0_BackReference
 		/// </summary>
 		[Association(ThisKey="SupplierID", OtherKey="SupplierID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
 		public IEnumerable<Purchase> Purchases { get; set; }
@@ -396,7 +374,7 @@ namespace Models
 		[Column("wholesaleID"), PrimaryKey, Identity] public long   WholesaleID  { get; set; } // integer
 		[Column("code"),        NotNull             ] public string Code         { get; set; } // text(max)
 		[Column("datatime"),    NotNull             ] public string Datatime     { get; set; } // text(max)
-		[Column("masterName"),  NotNull             ] public string MasterName   { get; set; } // text(max)
+		[Column("storeName"),   NotNull             ] public string StoreName    { get; set; } // text(max)
 		[Column("goodsID"),     NotNull             ] public long   GoodsID      { get; set; } // integer
 		[Column(),              NotNull             ] public double RealPrice    { get; set; } // real
 		[Column(),              NotNull             ] public double NumBigUnit   { get; set; } // real
@@ -404,20 +382,27 @@ namespace Models
 		[Column(),              NotNull             ] public double SumPrice     { get; set; } // real
 		[Column("isReturn"),    NotNull             ] public long   IsReturn     { get; set; } // integer
 		[Column("clientID"),    NotNull             ] public long   ClientID     { get; set; } // integer
+		[Column("payee"),       NotNull             ] public string Payee        { get; set; } // text(max)
 
 		#region Associations
 
 		/// <summary>
-		/// FK_wholesale_0_0
+		/// FK_wholesale_1_0
 		/// </summary>
-		[Association(ThisKey="ClientID", OtherKey="ClientID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_0_0", BackReferenceName="Wholesales")]
+		[Association(ThisKey="ClientID", OtherKey="ClientID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_1_0", BackReferenceName="Wholesales")]
 		public Client Client { get; set; }
 
 		/// <summary>
-		/// FK_wholesale_1_0
+		/// FK_wholesale_2_0
 		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_1_0", BackReferenceName="Wholesales")]
+		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_2_0", BackReferenceName="Wholesales")]
 		public Good Good { get; set; }
+
+		/// <summary>
+		/// FK_wholesale_0_0
+		/// </summary>
+		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_0_0", BackReferenceName="Wholesales")]
+		public Master Master { get; set; }
 
 		#endregion
 	}
@@ -448,28 +433,16 @@ namespace Models
 				t.GoodsID == GoodsID);
 		}
 
-		public static GoodsBigUnit Find(this ITable<GoodsBigUnit> table, string BigUnit)
-		{
-			return table.FirstOrDefault(t =>
-				t.BigUnit == BigUnit);
-		}
-
-		public static GoodsSmallUnit Find(this ITable<GoodsSmallUnit> table, string SmallUnit)
-		{
-			return table.FirstOrDefault(t =>
-				t.SmallUnit == SmallUnit);
-		}
-
-		public static GoodsStyle Find(this ITable<GoodsStyle> table, string Style)
-		{
-			return table.FirstOrDefault(t =>
-				t.Style == Style);
-		}
-
 		public static Log Find(this ITable<Log> table, long LogID)
 		{
 			return table.FirstOrDefault(t =>
 				t.LogID == LogID);
+		}
+
+		public static Master Find(this ITable<Master> table, string Payee)
+		{
+			return table.FirstOrDefault(t =>
+				t.Payee == Payee);
 		}
 
 		public static Purchase Find(this ITable<Purchase> table, long PurchaseID)

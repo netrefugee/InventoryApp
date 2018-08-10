@@ -38,7 +38,7 @@
 
 	NamespaceName = "Models";
 
-	LoadSQLiteMetadata(@"C:\Users\13170\Documents", "Inventory.db");
+	LoadSQLiteMetadata(@"C:\Users\13170\source\repos2\InventoryApp\InventoryApp\Data", "Inventory.db");
 //	LoadSQLiteMetadata(string connectionString);
 
 	GenerateModel();
