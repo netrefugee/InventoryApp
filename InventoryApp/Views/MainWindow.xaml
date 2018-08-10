@@ -5,22 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InventoryApp"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-
-    Title="{Binding Title}" Height="350" Width="525">
-    <DockPanel LastChildFill="True">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5" >
-            <Button Command="{Binding NavigateCommand}" CommandParameter="FarmerView" Margin="5" Content="{Binding CommandParameter}"></Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="GoodsView" Margin="5">Navigate to View B</Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="MasterView" Margin="5">Navigate to View A</Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="ClienterView" Margin="5">Navigate to View B</Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="LoggerView" Margin="5">Navigate to View B</Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="SupplierView" Margin="5">Navigate to View B</Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="PurchaseView" Margin="5">Navigate to View B</Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="RetailView" Margin="5">Navigate to View B</Button>
-            <Button Command="{Binding NavigateCommand}" CommandParameter="WholesaleView" Margin="5">Navigate to View B</Button>
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+     
+        Height="600" Width="1024" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
+        prism:ViewModelLocator.AutoWireViewModel="True" 
+        SizeChanged="Window_SizeChanged" ResizeMode="CanResizeWithGrip"
+  >
+    <Grid >
+        <Grid.Resources>
+            <sys:Double x:Key="NavigateButtonHeight">50</sys:Double>
+            <sys:Double x:Key="CloseMaxMinIconHeightWidth">20</sys:Double>
+            <sys:Double x:Key="CloseMaxMinButtonHeightWidth">30</sys:Double>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--左边宽度-->
+        <StackPanel Grid.Column="0"  Orientation="Vertical"  VerticalAlignment="Bottom">
+            <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="FarmerView"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }"  CommandParameter="GoodsView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="MasterView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="ClienterView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="LoggerView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="SupplierView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="PurchaseView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="RetailView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="WholesaleView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
         </StackPanel>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" Margin="5"  />
-    </DockPanel>
+
+
+        <DockPanel   Grid.Column="1"  >
+            <Grid DockPanel.Dock="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!--标题-->
+                <Label Content="{Binding Title}" FontSize="20" Grid.Column="0" MouseDoubleClick="Label_MouseDoubleClick"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                    <Label.Effect>
+                        <DropShadowEffect Color="#FFCFCFCF"/>
+                    </Label.Effect>
+                </Label>
+                <StackPanel VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <!--最小按钮-->
+                    <Button Click="btnMinimize_Click"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
+                        <materialDesign:PackIcon  Kind="WindowMinimize"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    </Button>
+                    <!--普通按钮-->
+                    <Button x:Name="btnNormal" Click="btnNormal_Click" Visibility="Collapsed" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
+                        <materialDesign:PackIcon  Kind="WindowMaximize"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    </Button>
+                    <!--最大化按钮-->
+                    <Button x:Name="btnMaximize" Click="btnMaximize_Click" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
+                        <materialDesign:PackIcon  Kind="WindowMaximize"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    </Button>
+                    <!--关闭按钮-->
+                    <Button   Click="Button_MouseLeftButtonDown_Close" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
+                        <materialDesign:PackIcon  Kind="WindowClose"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <!--内容-->
+            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion"     />
+        </DockPanel>
+
+
+
+
+
+    </Grid>
+
 </Window>
