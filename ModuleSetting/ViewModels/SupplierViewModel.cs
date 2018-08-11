@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace ModuleSetting.ViewModels
 {
-    public class SupplierViewViewModel : BindableBase
+    public class SupplierViewModel : BindableBase
     {
-        public SupplierViewViewModel()
+        public SupplierViewModel()
         {
 
         }

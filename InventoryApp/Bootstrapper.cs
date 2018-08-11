@@ -6,7 +6,9 @@ using Prism.Unity;
  
 using System.IO;
 using InventoryApp.Views;
-
+using Prism.Mvvm;
+using System.Reflection;
+using System;
 
 namespace InventoryApp
 {
@@ -32,7 +34,18 @@ namespace InventoryApp
             //moduleCatalog.AddModule(typeof(ModuleSellModule));
 
         }
+        //protected override void ConfigureViewModelLocator()
+        //{
+        //    base.ConfigureViewModelLocator();
 
+        //    ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
+        //    {
+        //        var viewName = viewType.FullName;
+        //        var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
+        //        var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
+        //        return Type.GetType(viewModelName);
+        //    });
+        //}
         //protected override IModuleCatalog CreateModuleCatalog()
         //{
         //    return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };

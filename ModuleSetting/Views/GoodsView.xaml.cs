@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using MaterialDesignThemes.Wpf;
+using System;
+using System.Windows.Controls;
 
 namespace ModuleSetting.Views
 {
@@ -11,5 +13,6 @@ namespace ModuleSetting.Views
         {
             InitializeComponent();
         }
+
     }
 }

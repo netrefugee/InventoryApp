@@ -5,8 +5,9 @@
                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+       
             <Label >FarmerView </Label>
-        </materialDesign:TransitioningContent>
+        <Button Command="{Binding CommandName}"> 123</Button>
+   
     </Grid>
 </UserControl>

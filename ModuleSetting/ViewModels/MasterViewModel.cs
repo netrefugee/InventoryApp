@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace ModuleSetting.ViewModels
 {
-    public class LoggerViewViewModel : BindableBase
+    public class MasterViewModel : BindableBase
     {
-        public LoggerViewViewModel()
+        public MasterViewModel()
         {
 
         }

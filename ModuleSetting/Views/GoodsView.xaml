@@ -1,9 +1,59 @@
-﻿<UserControl x:Class="ModuleSetting.Views.GoodsView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-        <Label>GoodsView</Label>
-    </Grid>
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" mc:Ignorable="d" x:Class="ModuleSetting.Views.GoodsView"
+             prism:ViewModelLocator.AutoWireViewModel="True"  >
+    <DockPanel LastChildFill="True">
+        <StackPanel>
+            <Button
+    Command="{Binding RunDialogCommand}"
+    Width="128">
+                RUN CODE
+            </Button>
+ 
+        </StackPanel>
+        <materialDesign:PopupBox Margin="16,0,16,0" StaysOpen="True" IsEnabled="True">
+            <WrapPanel Width="800" Height="500" Margin="8,8,8,8">
+                <WrapPanel.Resources>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+                        <Setter Property="Margin" Value="8,8,8,8"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="FontFamily" Value="微软雅黑"/>
+                    </Style>
+                    <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
+                        <Setter Property="Margin" Value="8,8,8,8"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="Width" Value="150"/>
+
+                    </Style>
+                </WrapPanel.Resources>
+
+                <TextBlock   Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="8,8,8,16">商品添加</TextBlock>
+                <TextBox   materialDesign:HintAssist.Hint="商品名称" />
+                <TextBox   materialDesign:HintAssist.Hint="箱重量"  />
+                <TextBox   materialDesign:HintAssist.Hint="瓶重量"  />
+                <TextBox   materialDesign:HintAssist.Hint="主要成分"  />
+                <TextBox   materialDesign:HintAssist.Hint="规格型号"  />
+                <TextBox   materialDesign:HintAssist.Hint="登记证号"  />
+                <TextBox   materialDesign:HintAssist.Hint="进货单价"  />
+                <TextBox   materialDesign:HintAssist.Hint="批发单价"  />
+                <TextBox   materialDesign:HintAssist.Hint="零售单价"  />
+          
+
+                <ComboBox  materialDesign:HintAssist.Hint="是否高毒" >
+                    <ComboBoxItem>高毒商品</ComboBoxItem>
+                    <ComboBoxItem>普通商品</ComboBoxItem>
+                </ComboBox>
+            </WrapPanel>
+
+        </materialDesign:PopupBox>
+        <dxg:GridControl  />
+
+    </DockPanel>
 </UserControl>
