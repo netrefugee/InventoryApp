@@ -10,7 +10,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        FontFamily="微软雅黑"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
      
@@ -30,7 +30,8 @@
         </Grid.ColumnDefinitions>
         <!--左边宽度-->
         <StackPanel Grid.Column="0"  Orientation="Vertical"  VerticalAlignment="Bottom">
-            <Button Command="{Binding TestCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="Test"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+ 
+                <Button Command="{Binding TestCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="Test"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="FarmerView"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }"  CommandParameter="GoodsView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="MasterView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
@@ -77,7 +78,7 @@
                 </StackPanel>
             </Grid>
             <!--内容-->
-            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion"     />
+            <ContentControl Grid.Row="1" Margin="3" prism:RegionManager.RegionName="ContentRegion"     />
         </DockPanel>
 
 

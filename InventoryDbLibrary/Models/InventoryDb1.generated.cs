@@ -131,8 +131,8 @@ namespace Models
 	{
 		[Column("goodsID"),             PrimaryKey,  Identity] public long    GoodsID             { get; set; } // integer
 		[Column("name"),                NotNull              ] public string  Name                { get; set; } // text(max)
-		[Column("style"),               NotNull              ] public string  Style               { get; set; } // text(max)
-		[Column("isHighToxicity"),      NotNull              ] public long    IsHighToxicity      { get; set; } // integer
+		[Column("styleSmall"),          NotNull              ] public string  StyleSmall          { get; set; } // text(max)
+		[Column("isHighToxicity"),      NotNull              ] public string  IsHighToxicity      { get; set; } // text(max)
 		[Column("bigUnit"),             NotNull              ] public string  BigUnit             { get; set; } // text(max)
 		[Column("content"),             NotNull              ] public long    Content             { get; set; } // integer
 		[Column("identificationCode"),  NotNull              ] public string  IdentificationCode  { get; set; } // text(max)
@@ -141,7 +141,7 @@ namespace Models
 		[Column("mainIngredient"),         Nullable          ] public string  MainIngredient      { get; set; } // text(max)
 		[Column("boxWeight"),              Nullable          ] public double? BoxWeight           { get; set; } // real
 		[Column("bottleWeight"),           Nullable          ] public double? BottleWeight        { get; set; } // real
-		[Column("manufacturer"),           Nullable          ] public string  Manufacturer        { get; set; } // text(max)
+		[Column("manufacturer"),        NotNull              ] public string  Manufacturer        { get; set; } // text(max)
 		[Column("registrationCode"),       Nullable          ] public string  RegistrationCode    { get; set; } // text(max)
 		[Column("purchaseReferPrice"),     Nullable          ] public double? PurchaseReferPrice  { get; set; } // real
 		[Column("wholesaleReferPrice"),    Nullable          ] public double? WholesaleReferPrice { get; set; } // real
