@@ -129,51 +129,23 @@ namespace Models
 	[Table("goods")]
 	public partial class Good
 	{
-		[Column("goodsID"),             PrimaryKey,  Identity] public long    GoodsID             { get; set; } // integer
-		[Column("name"),                NotNull              ] public string  Name                { get; set; } // text(max)
-		[Column("styleSmall"),          NotNull              ] public string  StyleSmall          { get; set; } // text(max)
-		[Column("isHighToxicity"),      NotNull              ] public string  IsHighToxicity      { get; set; } // text(max)
-		[Column("bigUnit"),             NotNull              ] public string  BigUnit             { get; set; } // text(max)
-		[Column("content"),             NotNull              ] public long    Content             { get; set; } // integer
-		[Column("identificationCode"),  NotNull              ] public string  IdentificationCode  { get; set; } // text(max)
-		[Column("smallUnit"),           NotNull              ] public string  SmallUnit           { get; set; } // text(max)
-		[Column("styleBig"),            NotNull              ] public string  StyleBig            { get; set; } // text(max)
-		[Column("mainIngredient"),         Nullable          ] public string  MainIngredient      { get; set; } // text(max)
-		[Column("boxWeight"),              Nullable          ] public double? BoxWeight           { get; set; } // real
-		[Column("bottleWeight"),           Nullable          ] public double? BottleWeight        { get; set; } // real
-		[Column("manufacturer"),        NotNull              ] public string  Manufacturer        { get; set; } // text(max)
-		[Column("registrationCode"),       Nullable          ] public string  RegistrationCode    { get; set; } // text(max)
-		[Column("purchaseReferPrice"),     Nullable          ] public double? PurchaseReferPrice  { get; set; } // real
-		[Column("wholesaleReferPrice"),    Nullable          ] public double? WholesaleReferPrice { get; set; } // real
-		[Column("retailReferPrice"),       Nullable          ] public double? RetailReferPrice    { get; set; } // real
-
-		#region Associations
-
-		/// <summary>
-		/// FK_purchase_2_0_BackReference
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Purchase> Purchases { get; set; }
-
-		/// <summary>
-		/// FK_retail_2_0_BackReference
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Retail> Retails { get; set; }
-
-		/// <summary>
-		/// FK_stock_0_0_BackReference
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Stock> Stocks { get; set; }
-
-		/// <summary>
-		/// FK_wholesale_2_0_BackReference
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Wholesale> Wholesales { get; set; }
-
-		#endregion
+		[Column(),        PrimaryKey,  Identity] public long    商品ID      { get; set; } // integer
+		[Column(),        NotNull              ] public string  商品追溯码前11位 { get; set; } // text(max)
+		[Column("_商品名称"), NotNull              ] public string  商品名称      { get; set; } // text(max)
+		[Column(),           Nullable          ] public double? 进货价格      { get; set; } // real
+		[Column(),           Nullable          ] public double? 批发价格      { get; set; } // real
+		[Column(),           Nullable          ] public double? 零售价格      { get; set; } // real
+		[Column("单位(大)"), NotNull              ] public string  单位大       { get; set; } // text(max)
+		[Column(),        NotNull              ] public long    内含量       { get; set; } // integer
+		[Column("单位(小)"), NotNull              ] public string  单位小       { get; set; } // text(max)
+		[Column("种类(大)"), NotNull              ] public string  种类大       { get; set; } // text(max)
+		[Column("种类(小)"), NotNull              ] public string  种类小       { get; set; } // text(max)
+		[Column(),           Nullable          ] public string  主要成分      { get; set; } // text(max)
+		[Column(),        NotNull              ] public string  是否高毒      { get; set; } // text(max)
+		[Column(),        NotNull              ] public string  生产厂家      { get; set; } // text(max)
+		[Column(),           Nullable          ] public double? 箱重量       { get; set; } // real
+		[Column(),           Nullable          ] public double? 瓶重量       { get; set; } // real
+		[Column(),           Nullable          ] public string  农药登记证号    { get; set; } // text(max)
 	}
 
 	[Table("log")]
@@ -237,12 +209,6 @@ namespace Models
 		#region Associations
 
 		/// <summary>
-		/// FK_purchase_2_0
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_2_0", BackReferenceName="Purchases")]
-		public Good Good { get; set; }
-
-		/// <summary>
 		/// FK_purchase_0_0
 		/// </summary>
 		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_0_0", BackReferenceName="Purchases")]
@@ -282,12 +248,6 @@ namespace Models
 		public Farmer Farmer { get; set; }
 
 		/// <summary>
-		/// FK_retail_2_0
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_2_0", BackReferenceName="Retails")]
-		public Good Good { get; set; }
-
-		/// <summary>
 		/// FK_retail_0_0
 		/// </summary>
 		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_0_0", BackReferenceName="Retails")]
@@ -304,16 +264,6 @@ namespace Models
 		[Column("goodsID"),   NotNull             ] public long   GoodsID      { get; set; } // integer
 		[Column(),            NotNull             ] public double NumBigUnit   { get; set; } // real
 		[Column(),            NotNull             ] public long   NumSmallUnit { get; set; } // integer
-
-		#region Associations
-
-		/// <summary>
-		/// FK_stock_0_0
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_stock_0_0", BackReferenceName="Stocks")]
-		public Good Good { get; set; }
-
-		#endregion
 	}
 
 	[Table("supplier")]
@@ -393,12 +343,6 @@ namespace Models
 		public Client Client { get; set; }
 
 		/// <summary>
-		/// FK_wholesale_2_0
-		/// </summary>
-		[Association(ThisKey="GoodsID", OtherKey="GoodsID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_2_0", BackReferenceName="Wholesales")]
-		public Good Good { get; set; }
-
-		/// <summary>
 		/// FK_wholesale_0_0
 		/// </summary>
 		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_0_0", BackReferenceName="Wholesales")]
@@ -427,10 +371,10 @@ namespace Models
 				t.FarmerID == FarmerID);
 		}
 
-		public static Good Find(this ITable<Good> table, long GoodsID)
+		public static Good Find(this ITable<Good> table, long 商品ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.GoodsID == GoodsID);
+				t.商品ID == 商品ID);
 		}
 
 		public static Log Find(this ITable<Log> table, long LogID)

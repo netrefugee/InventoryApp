@@ -11,10 +11,7 @@
              x:Class="ModuleSetting.Views.GoodsView"
              xmlns:converter="clr-namespace:ModuleSetting.Utils"
              prism:ViewModelLocator.AutoWireViewModel="True"  >
-    <UserControl.Resources>
-        <!--引用资源-->
-        <converter:ContentLongConverter x:Key="ContentLongConverter"/>
-    </UserControl.Resources>
+
     <DockPanel >
         <StackPanel Orientation="Horizontal"  DockPanel.Dock="Top">
             <Button x:Name="addGoodButton" Content="添加商品" Command="{Binding ShowAddGoodPanel}" ></Button>
@@ -57,7 +54,7 @@
 
                 <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
                 <WrapPanel  Grid.Row="0" Grid.Column="1">
-                    <TextBox   materialDesign:HintAssist.Hint="商品追溯码前11位" Width="200" input:InputMethod.IsInputMethodEnabled="False"/>
+                    <TextBox   materialDesign:HintAssist.Hint="商品追溯码前11位" Width="200" input:InputMethod.IsInputMethodEnabled="False" Text="{Binding Good.商品ID}"/>
                     <TextBox   materialDesign:HintAssist.Hint="生产厂家" Width="200" Text="{Binding Good.Manufacturer}"/>
                     <TextBox   materialDesign:HintAssist.Hint="商品名称" Text="{Binding Good.Name}"/>
                     <ComboBox  materialDesign:HintAssist.Hint="是否高毒" ItemsSource="{Binding IsHighToxicityList}"
@@ -91,9 +88,9 @@
                 <TextBlock Text="其他设置:"  Grid.Row="1" Grid.Column="0"/>
                 <WrapPanel  Grid.Row="1" Grid.Column="1">
                     <TextBox   materialDesign:HintAssist.Hint="主要成分" Text="{Binding  Good.MainIngredient}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="农药登记证号"  Text="{Binding  Good.IdentificationCode}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="箱重量"   Text="{Binding  Good.BoxWeight}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="瓶重量"  Text="{Binding  Good.BottleWeight}" />
+                    <TextBox   materialDesign:HintAssist.Hint="农药登记证号"  Text="{Binding  Good.RegistrationCode}"/>
+                    <TextBox   materialDesign:HintAssist.Hint="箱重量(kg)"   Text="{Binding  Good.BoxWeight}"/>
+                    <TextBox   materialDesign:HintAssist.Hint="瓶重量(kg)"  Text="{Binding  Good.BottleWeight}" />
                 </WrapPanel>
                 <TextBlock Text="价格策略:"  Grid.Row="2" Grid.Column="0"/>
                 <WrapPanel  Grid.Row="2" Grid.Column="1">
@@ -107,7 +104,12 @@
                 <Button Width="100" Command="{Binding HideAddGoodPanel}">取消</Button>
             </StackPanel>
         </StackPanel>
-        <dxg:GridControl  />
+        <dxg:GridControl  ItemsSource="{Binding Goods}" AutoGenerateColumns="RemoveOld">
+            <dxg:GridControl.View>
+                <dxg:TreeListView AllowEditing="False" />
+            </dxg:GridControl.View>
+        </dxg:GridControl >
+
         <!--<DataGrid></DataGrid>-->
 
     </DockPanel>
