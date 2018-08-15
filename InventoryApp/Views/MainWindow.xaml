@@ -25,7 +25,7 @@
             <sys:Double x:Key="CloseMaxMinButtonHeightWidth">30</sys:Double>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!--左边宽度-->

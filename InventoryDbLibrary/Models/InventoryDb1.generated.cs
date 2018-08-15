@@ -56,31 +56,15 @@ namespace Models
 	[Table("client")]
 	public partial class Client
 	{
-		[Column("clientID"),      PrimaryKey,  Identity] public long   ClientID      { get; set; } // integer
-		[Column("name"),          NotNull              ] public string Name          { get; set; } // text(max)
-		[Column("phone"),            Nullable          ] public string Phone         { get; set; } // text(max)
-		[Column("address"),          Nullable          ] public string Address       { get; set; } // text(max)
-		[Column("storeName"),        Nullable          ] public string StoreName     { get; set; } // text(max)
-		[Column("businessPlace"),    Nullable          ] public string BusinessPlace { get; set; } // text(max)
-		[Column("storagePlace"),     Nullable          ] public string StoragePlace  { get; set; } // text(max)
-		[Column("email"),            Nullable          ] public string Email         { get; set; } // text(max)
-		[Column("creditCode"),       Nullable          ] public string CreditCode    { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_clientAccount_0_0_BackReference
-		/// </summary>
-		[Association(ThisKey="ClientID", OtherKey="ClientID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<ClientAccount> ClientAccounts { get; set; }
-
-		/// <summary>
-		/// FK_wholesale_1_0_BackReference
-		/// </summary>
-		[Association(ThisKey="ClientID", OtherKey="ClientID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Wholesale> Wholesales { get; set; }
-
-		#endregion
+		[PrimaryKey, Identity   ] public long   客户ID     { get; set; } // integer
+		[Column,     NotNull    ] public string 姓名       { get; set; } // text(max)
+		[Column,        Nullable] public string 电话       { get; set; } // text(max)
+		[Column,        Nullable] public string 地址       { get; set; } // text(max)
+		[Column,        Nullable] public string 商店名称     { get; set; } // text(max)
+		[Column,        Nullable] public string 办公地址     { get; set; } // text(max)
+		[Column,        Nullable] public string 库存地址     { get; set; } // text(max)
+		[Column,        Nullable] public string 邮箱       { get; set; } // text(max)
+		[Column,        Nullable] public string 社会统一信用代码 { get; set; } // text(max)
 	}
 
 	[Table("clientAccount")]
@@ -90,62 +74,42 @@ namespace Models
 		[Column("clientAccount"),   NotNull             ] public double ClientAccount_Column { get; set; } // real
 		[Column("clientID"),        NotNull             ] public long   ClientID             { get; set; } // integer
 		[Column("dataTime"),        NotNull             ] public string DataTime             { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_clientAccount_0_0
-		/// </summary>
-		[Association(ThisKey="ClientID", OtherKey="ClientID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_clientAccount_0_0", BackReferenceName="ClientAccounts")]
-		public Client Client { get; set; }
-
-		#endregion
 	}
 
 	[Table("farmer")]
 	public partial class Farmer
 	{
-		[Column("farmerID"), PrimaryKey, Identity] public long   FarmerID { get; set; } // integer
-		[Column("name"),     Nullable            ] public string Name     { get; set; } // text(max)
-		[Column("phone"),    Nullable            ] public string Phone    { get; set; } // text(max)
-		[Column("number"),   Nullable            ] public string Number   { get; set; } // text(max)
-		[Column("province"), Nullable            ] public string Province { get; set; } // text(max)
-		[Column("city"),     Nullable            ] public string City     { get; set; } // text(max)
-		[Column("county"),   Nullable            ] public string County   { get; set; } // text(max)
-		[Column("town"),     Nullable            ] public string Town     { get; set; } // text(max)
-		[Column("village"),  Nullable            ] public string Village  { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_retail_1_0_BackReference
-		/// </summary>
-		[Association(ThisKey="FarmerID", OtherKey="FarmerID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Retail> Retails { get; set; }
-
-		#endregion
+		[PrimaryKey, Identity] public long   农户ID { get; set; } // integer
+		[Column,     Nullable] public string 姓名   { get; set; } // text(max)
+		[Column,     Nullable] public string 电话   { get; set; } // text(max)
+		[Column,     Nullable] public string 身份证号 { get; set; } // text(max)
+		[Column,     Nullable] public string 省    { get; set; } // text(max)
+		[Column,     Nullable] public string 市    { get; set; } // text(max)
+		[Column,     Nullable] public string 县    { get; set; } // text(max)
+		[Column,     Nullable] public string 乡镇   { get; set; } // text(max)
+		[Column,     Nullable] public string 村    { get; set; } // text(max)
 	}
 
 	[Table("goods")]
 	public partial class Good
 	{
-		[Column(),        PrimaryKey,  Identity] public long    商品ID      { get; set; } // integer
-		[Column(),        NotNull              ] public string  商品追溯码前11位 { get; set; } // text(max)
-		[Column("_商品名称"), NotNull              ] public string  商品名称      { get; set; } // text(max)
-		[Column(),           Nullable          ] public double? 进货价格      { get; set; } // real
-		[Column(),           Nullable          ] public double? 批发价格      { get; set; } // real
-		[Column(),           Nullable          ] public double? 零售价格      { get; set; } // real
-		[Column("单位(大)"), NotNull              ] public string  单位大       { get; set; } // text(max)
-		[Column(),        NotNull              ] public long    内含量       { get; set; } // integer
-		[Column("单位(小)"), NotNull              ] public string  单位小       { get; set; } // text(max)
-		[Column("种类(大)"), NotNull              ] public string  种类大       { get; set; } // text(max)
-		[Column("种类(小)"), NotNull              ] public string  种类小       { get; set; } // text(max)
-		[Column(),           Nullable          ] public string  主要成分      { get; set; } // text(max)
-		[Column(),        NotNull              ] public string  是否高毒      { get; set; } // text(max)
-		[Column(),        NotNull              ] public string  生产厂家      { get; set; } // text(max)
-		[Column(),           Nullable          ] public double? 箱重量       { get; set; } // real
-		[Column(),           Nullable          ] public double? 瓶重量       { get; set; } // real
-		[Column(),           Nullable          ] public string  农药登记证号    { get; set; } // text(max)
+		[PrimaryKey, Identity   ] public long    商品ID      { get; set; } // integer
+		[Column,     NotNull    ] public string  商品追溯码前11位 { get; set; } // text(max)
+		[Column,     NotNull    ] public string  商品名称      { get; set; } // text(max)
+		[Column,        Nullable] public double? 进货价格      { get; set; } // real
+		[Column,        Nullable] public double? 批发价格      { get; set; } // real
+		[Column,        Nullable] public double? 零售价格      { get; set; } // real
+		[Column,     NotNull    ] public string  单位大       { get; set; } // text(max)
+		[Column,     NotNull    ] public long    内含量       { get; set; } // integer
+		[Column,     NotNull    ] public string  单位小       { get; set; } // text(max)
+		[Column,     NotNull    ] public string  种类大       { get; set; } // text(max)
+		[Column,     NotNull    ] public string  种类小       { get; set; } // text(max)
+		[Column,        Nullable] public string  主要成分      { get; set; } // text(max)
+		[Column,     NotNull    ] public string  是否高毒      { get; set; } // text(max)
+		[Column,     NotNull    ] public string  生产厂家      { get; set; } // text(max)
+		[Column,        Nullable] public double? 箱重量       { get; set; } // real
+		[Column,        Nullable] public double? 瓶重量       { get; set; } // real
+		[Column,        Nullable] public string  农药登记证号    { get; set; } // text(max)
 	}
 
 	[Table("log")]
@@ -214,12 +178,6 @@ namespace Models
 		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_0_0", BackReferenceName="Purchases")]
 		public Master Master { get; set; }
 
-		/// <summary>
-		/// FK_purchase_1_0
-		/// </summary>
-		[Association(ThisKey="SupplierID", OtherKey="SupplierID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_1_0", BackReferenceName="Purchases")]
-		public Supplier Supplier { get; set; }
-
 		#endregion
 	}
 
@@ -240,12 +198,6 @@ namespace Models
 		[Column("payee"),     NotNull             ] public string Payee        { get; set; } // text(max)
 
 		#region Associations
-
-		/// <summary>
-		/// FK_retail_1_0
-		/// </summary>
-		[Association(ThisKey="FarmerID", OtherKey="FarmerID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_1_0", BackReferenceName="Retails")]
-		public Farmer Farmer { get; set; }
 
 		/// <summary>
 		/// FK_retail_0_0
@@ -269,34 +221,18 @@ namespace Models
 	[Table("supplier")]
 	public partial class Supplier
 	{
-		[Column("supplierID"), PrimaryKey,  Identity] public long   SupplierID      { get; set; } // integer
-		[Column("supplier"),   NotNull              ] public string Supplier_Column { get; set; } // text(max)
-		[Column("contact"),    NotNull              ] public string Contact         { get; set; } // text(max)
-		[Column("phone"),         Nullable          ] public string Phone           { get; set; } // text(max)
-		[Column("fax"),           Nullable          ] public string Fax             { get; set; } // text(max)
-		[Column("email"),         Nullable          ] public string Email           { get; set; } // text(max)
-		[Column("address"),       Nullable          ] public string Address         { get; set; } // text(max)
-		[Column("nature"),        Nullable          ] public string Nature          { get; set; } // text(max)
-		[Column("legal"),         Nullable          ] public string Legal           { get; set; } // text(max)
-		[Column("bank"),          Nullable          ] public string Bank            { get; set; } // text(max)
-		[Column("bankAccout"),    Nullable          ] public string BankAccout      { get; set; } // text(max)
-		[Column("remarks"),       Nullable          ] public string Remarks         { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_purchase_1_0_BackReference
-		/// </summary>
-		[Association(ThisKey="SupplierID", OtherKey="SupplierID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Purchase> Purchases { get; set; }
-
-		/// <summary>
-		/// FK_supplierAccount_0_0_BackReference
-		/// </summary>
-		[Association(ThisKey="SupplierID", OtherKey="SupplierID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<SupplierAccount> SupplierAccounts { get; set; }
-
-		#endregion
+		[PrimaryKey, Identity   ] public long   供应商ID   { get; set; } // integer
+		[Column,     NotNull    ] public string 供应商名称   { get; set; } // text(max)
+		[Column,     NotNull    ] public string 联系人     { get; set; } // text(max)
+		[Column,        Nullable] public string 电话      { get; set; } // text(max)
+		[Column,        Nullable] public string 传真      { get; set; } // text(max)
+		[Column,        Nullable] public string 邮箱      { get; set; } // text(max)
+		[Column,        Nullable] public string 地址      { get; set; } // text(max)
+		[Column,        Nullable] public string 供应商企业性质 { get; set; } // text(max)
+		[Column,        Nullable] public string 法人负责人   { get; set; } // text(max)
+		[Column,        Nullable] public string 开户银行    { get; set; } // text(max)
+		[Column,        Nullable] public string 银行账号    { get; set; } // text(max)
+		[Column,        Nullable] public string 备注      { get; set; } // text(max)
 	}
 
 	[Table("supplierAccount")]
@@ -306,16 +242,6 @@ namespace Models
 		[Column("supplierID"),        NotNull              ] public long    SupplierID             { get; set; } // integer
 		[Column("datetime"),             Nullable          ] public string  Datetime               { get; set; } // text(max)
 		[Column("supplierAccount"),      Nullable          ] public double? SupplierAccount_Column { get; set; } // real
-
-		#region Associations
-
-		/// <summary>
-		/// FK_supplierAccount_0_0
-		/// </summary>
-		[Association(ThisKey="SupplierID", OtherKey="SupplierID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_supplierAccount_0_0", BackReferenceName="SupplierAccounts")]
-		public Supplier Supplier { get; set; }
-
-		#endregion
 	}
 
 	[Table("wholesale")]
@@ -337,12 +263,6 @@ namespace Models
 		#region Associations
 
 		/// <summary>
-		/// FK_wholesale_1_0
-		/// </summary>
-		[Association(ThisKey="ClientID", OtherKey="ClientID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_1_0", BackReferenceName="Wholesales")]
-		public Client Client { get; set; }
-
-		/// <summary>
 		/// FK_wholesale_0_0
 		/// </summary>
 		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_0_0", BackReferenceName="Wholesales")]
@@ -353,10 +273,10 @@ namespace Models
 
 	public static partial class TableExtensions
 	{
-		public static Client Find(this ITable<Client> table, long ClientID)
+		public static Client Find(this ITable<Client> table, long 客户ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.ClientID == ClientID);
+				t.客户ID == 客户ID);
 		}
 
 		public static ClientAccount Find(this ITable<ClientAccount> table, long ClientAccountID)
@@ -365,10 +285,10 @@ namespace Models
 				t.ClientAccountID == ClientAccountID);
 		}
 
-		public static Farmer Find(this ITable<Farmer> table, long FarmerID)
+		public static Farmer Find(this ITable<Farmer> table, long 农户ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.FarmerID == FarmerID);
+				t.农户ID == 农户ID);
 		}
 
 		public static Good Find(this ITable<Good> table, long 商品ID)
@@ -407,10 +327,10 @@ namespace Models
 				t.StockID == StockID);
 		}
 
-		public static Supplier Find(this ITable<Supplier> table, long SupplierID)
+		public static Supplier Find(this ITable<Supplier> table, long 供应商ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.SupplierID == SupplierID);
+				t.供应商ID == 供应商ID);
 		}
 
 		public static SupplierAccount Find(this ITable<SupplierAccount> table, long SupplierAccountID)

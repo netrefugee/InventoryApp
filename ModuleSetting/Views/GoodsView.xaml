@@ -1,4 +1,4 @@
-﻿<UserControl 
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
@@ -6,111 +6,116 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" mc:Ignorable="d" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
              xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
-             x:Class="ModuleSetting.Views.GoodsView"
              xmlns:converter="clr-namespace:ModuleSetting.Utils"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" mc:Ignorable="d"
+             x:Class="ModuleSetting.Views.GoodsView"
              prism:ViewModelLocator.AutoWireViewModel="True"  >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ModuleSetting;component/Styles/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <DockPanel >
-        <StackPanel Orientation="Horizontal"  DockPanel.Dock="Top">
-            <Button x:Name="addGoodButton" Content="添加商品" Command="{Binding ShowAddGoodPanel}" ></Button>
+        <StackPanel Orientation="Horizontal"  DockPanel.Dock="Top" >
+            <Button x:Name="addGoodButton" Content="添加商品" Command="{Binding ShowAddGoodPanel}" Margin="3"/>
+            <Button   Command="{Binding UpdateGoods}" Content="刷新" Margin="3"/>
         </StackPanel>
 
-        <StackPanel  Visibility="{Binding IsShowAddGoodPanel}" DockPanel.Dock="Top"    Orientation="Vertical">
-            <StackPanel.Resources>
-                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
-                    <!--<Setter Property="materialDesign:HintAssist.FloatingScale" Value="0.80"/>-->
-                    <!--<Setter Property="materialDesign:TextFieldAssist.TextBoxViewMargin" Value="0,50,0,0"/>-->
-                    <Setter Property="Margin" Value="4,2,4,2"/>
-                    <Setter Property="FontSize" Value="16"/>
-                    <Setter Property="Width" Value="100"/>
-                </Style>
-                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
-                    <Setter Property="materialDesign:HintAssist.IsFloating" Value="True"/>
-                    <Setter Property="Margin" Value="4,7,4,2"/>
-                    <Setter Property="FontSize" Value="16"/>
-                    <!--<Setter Property="Width" Value="100"/>-->
-                </Style>
-                <Style TargetType="TextBlock"  >
-                    <Setter Property="Margin" Value="4,2,4,2"/>
-                    <Setter Property="FontSize" Value="16"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                </Style>
-            </StackPanel.Resources>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <materialDesign:Card  Margin="3" DockPanel.Dock="Top" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <StackPanel  Visibility="{Binding IsShowAddGoodPanel}"  Orientation="Vertical">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
-                <WrapPanel  Grid.Row="0" Grid.Column="1">
-                    <TextBox   materialDesign:HintAssist.Hint="商品追溯码前11位" Width="200" input:InputMethod.IsInputMethodEnabled="False" Text="{Binding Good.商品ID}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="生产厂家" Width="200" Text="{Binding Good.Manufacturer}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="商品名称" Text="{Binding Good.Name}"/>
-                    <ComboBox  materialDesign:HintAssist.Hint="是否高毒" ItemsSource="{Binding IsHighToxicityList}"
-                               SelectedValue="{Binding Good.IsHighToxicity}">
-                    </ComboBox>
-                    <ComboBox  materialDesign:HintAssist.Hint="商品类别(大)" ItemsSource="{Binding StyleBigList}"
-                               SelectedValue="{Binding Good.StyleBig}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding LoadStyleSmallList}" 
-                                                       CommandParameter="{Binding Path=SelectedValue,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ComboBox}}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ComboBox>
-                    <ComboBox  materialDesign:HintAssist.Hint="商品类别(小)" ItemsSource="{Binding StyleSmallList}" 
-                               SelectedValue="{Binding Good.StyleSmall}"
-                               >
-                    </ComboBox>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="每" FontWeight="Normal" Margin="0,0,0,-17"></TextBlock>
-                        <ComboBox  materialDesign:HintAssist.Hint="单位(大)" ItemsSource="{Binding BigUnitList}"
-                                   SelectedValue="{Binding Good.BigUnit}">
-
+                    <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
+                    <WrapPanel  Grid.Row="0" Grid.Column="1">
+                        <TextBox   materialDesign:HintAssist.Hint="商品追溯码前11位" Width="200" InputMethod.IsInputMethodEnabled="False" Text="{Binding Good.商品追溯码前11位}"/>
+                        <TextBox   materialDesign:HintAssist.Hint="商品名称" Text="{Binding Good.商品名称}"/>
+                        <TextBox   materialDesign:HintAssist.Hint="生产厂家" Width="150" Text="{Binding Good.生产厂家}"/>
+                        <ComboBox  materialDesign:HintAssist.Hint="是否高毒" ItemsSource="{Binding IsHighToxicityList}"
+                               SelectedValue="{Binding Good.是否高毒}"/>
+                        <ComboBox  materialDesign:HintAssist.Hint="商品类别(大)" ItemsSource="{Binding StyleBigList}"
+                               SelectedValue="{Binding Good.种类大}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding LoadStyleSmallList}" 
+                                                       CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}, Mode=FindAncestor}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </ComboBox>
-                        <TextBox   materialDesign:HintAssist.Hint="数量" Width="50" Text="{Binding Good.Content}"/>
-                        <ComboBox   materialDesign:HintAssist.Hint="单位(小)" ItemsSource="{Binding SmallUnitList}"
-                                    SelectedValue="{Binding Good.SmallUnit}">
-                        </ComboBox>
-                    </StackPanel>
-                </WrapPanel>
-                <TextBlock Text="其他设置:"  Grid.Row="1" Grid.Column="0"/>
-                <WrapPanel  Grid.Row="1" Grid.Column="1">
-                    <TextBox   materialDesign:HintAssist.Hint="主要成分" Text="{Binding  Good.MainIngredient}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="农药登记证号"  Text="{Binding  Good.RegistrationCode}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="箱重量(kg)"   Text="{Binding  Good.BoxWeight}"/>
-                    <TextBox   materialDesign:HintAssist.Hint="瓶重量(kg)"  Text="{Binding  Good.BottleWeight}" />
-                </WrapPanel>
-                <TextBlock Text="价格策略:"  Grid.Row="2" Grid.Column="0"/>
-                <WrapPanel  Grid.Row="2" Grid.Column="1">
-                    <TextBox   materialDesign:HintAssist.Hint="进货价格(元)" Width="150" Text="{Binding  Good.PurchaseReferPrice}" />
-                    <TextBox   materialDesign:HintAssist.Hint="批发价格(元)" Width="150" Text="{Binding  Good.WholesaleReferPrice}" />
-                    <TextBox   materialDesign:HintAssist.Hint="零售价格(元)" Width="150" Text="{Binding  Good.RetailReferPrice}"  />
-                </WrapPanel>
-            </Grid>
-            <StackPanel Orientation="Horizontal" >
-                <Button Width="100" Command="{Binding SaveAddGood}">保存</Button>
-                <Button Width="100" Command="{Binding HideAddGoodPanel}">取消</Button>
+                        <ComboBox  materialDesign:HintAssist.Hint="商品类别(小)" ItemsSource="{Binding StyleSmallList}" 
+                               SelectedValue="{Binding Good.种类小}"
+                               />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="每" FontWeight="Normal" Margin="0,0,0,-17"/>
+                            <ComboBox  materialDesign:HintAssist.Hint="单位(大)" ItemsSource="{Binding BigUnitList}"
+                                   SelectedValue="{Binding Good.单位大}"/>
+                            <TextBox   materialDesign:HintAssist.Hint="数量" Width="50" Text="{Binding Good.内含量}"/>
+                            <ComboBox   materialDesign:HintAssist.Hint="单位(小)" ItemsSource="{Binding SmallUnitList}"
+                                    SelectedValue="{Binding Good.单位小}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    <TextBlock Text="其他设置:"  Grid.Row="1" Grid.Column="0"/>
+                    <WrapPanel  Grid.Row="1" Grid.Column="1">
+                        <TextBox   materialDesign:HintAssist.Hint="主要成分" Text="{Binding Good.主要成分}"/>
+                        <TextBox   materialDesign:HintAssist.Hint="农药登记证号"  Text="{Binding Good.农药登记证号}"/>
+                        <TextBox   materialDesign:HintAssist.Hint="箱重量(kg)"   Text="{Binding Good.箱重量}"/>
+                        <TextBox   materialDesign:HintAssist.Hint="瓶重量(kg)"  Text="{Binding Good.瓶重量}" />
+                    </WrapPanel>
+                    <TextBlock Text="价格策略:"  Grid.Row="2" Grid.Column="0"/>
+                    <WrapPanel  Grid.Row="2" Grid.Column="1">
+                        <TextBox   materialDesign:HintAssist.Hint="进货价格(元)"   Text="{Binding Good.进货价格}" />
+                        <TextBox   materialDesign:HintAssist.Hint="批发价格(元)"   Text="{Binding Good.批发价格}" />
+                        <TextBox   materialDesign:HintAssist.Hint="零售价格(元)"   Text="{Binding Good.零售价格}"  />
+                    </WrapPanel>
+                </Grid>
+                <StackPanel Orientation="Horizontal" >
+                    <Button Margin="3"  Command="{Binding SaveAddGood}" Content="保存" Width="80"/>
+                    <Button  Margin="3" Command="{Binding HideAddGoodPanel}" Content="取消" Width="80"/>
+                    <TextBlock Foreground="Red" Text="{Binding CurrentState.Info}"></TextBlock>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <dxg:GridControl  ItemsSource="{Binding Goods}" AutoGenerateColumns="RemoveOld">
-            <dxg:GridControl.View>
-                <dxg:TreeListView AllowEditing="False" />
-            </dxg:GridControl.View>
-        </dxg:GridControl >
+        </materialDesign:Card>
+        <!--<Button Content="test" Click="Button_Click"></Button>-->
+        <dxg:GridControl  ItemsSource="{Binding Goods}" x:Name="GoodsGridControl"  AutoGenerateColumns="AddNew" >
+            <dxg:GridControl.Columns>
 
-        <!--<DataGrid></DataGrid>-->
+                <dxg:GridColumn  FieldName="编辑" Width="50" >
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="50" Height="20" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+                                  Command="{Binding DataContext.EditGood, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
+                                    CommandParameter="{Binding  ElementName=GoodsGridControl,Path=SelectedItem}">
+                                <materialDesign:PackIcon Kind="TableEdit" />
+                            </Button>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+
+                </dxg:GridColumn>
+
+
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View >
+                <dxg:TableView  AllowEditing="False"  ShowGroupPanel="False"/>
+            </dxg:GridControl.View>
+
+        </dxg:GridControl>
+        <!--<DataGrid ItemsSource="{Binding Goods}" AutoGenerateColumns="True" IsReadOnly="True" 
+                  CanUserAddRows="False" SelectionMode="Single"  >
+
+        </DataGrid>-->
 
     </DockPanel>
 </UserControl>

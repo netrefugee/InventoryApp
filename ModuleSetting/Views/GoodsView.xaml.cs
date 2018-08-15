@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Models;
 using System;
 using System.Windows.Controls;
 
@@ -12,8 +13,7 @@ namespace ModuleSetting.Views
         public GoodsView()
         {
             InitializeComponent();
-        }
 
- 
+        }
     }
 }
