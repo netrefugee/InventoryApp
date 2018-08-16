@@ -10,6 +10,7 @@ namespace ModuleSetting.Services
 {
     class DbDataService
     {
+        #region [ 商品 ]
         // 是否存在商品
         public bool isExistGood(Good good)
         {
@@ -52,5 +53,112 @@ namespace ModuleSetting.Services
                 db.Update(good);
             }
         }
+#endregion
+        #region  [ 农户 ]
+        // 是否存在
+        internal bool isExistFarmer(Farmer farmer)
+        {
+            using (var db = new InventoryDB())
+            {
+
+                // 是否存在商品
+                var query = from p in db.Farmers
+                            where p.姓名 == farmer.姓名
+                            select p;
+                // 如果存在
+                if (query.Count() != 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        // 添加农户
+        internal void InsertFarmer(Farmer farmer)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Insert(farmer);
+            }
+        }
+        // 修改农户
+        internal void UpdateFarmer(Farmer farmer)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Update(farmer);
+            }
+        }
+
+        #endregion
+        #region 客户
+        internal bool isExistClient(Client client)
+        {
+            using (var db = new InventoryDB())
+            {
+
+                // 是否存在商品
+                var query = from p in db.Clients
+                            where p.姓名 == client.姓名
+                            select p;
+                // 如果存在
+                if (query.Count() != 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        internal void InsertClient(Client client)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Insert(client);
+            }
+        }
+
+        internal void UpdateClient(Client client)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Update(client);
+            }
+        }
+        #endregion
+        #region 供应商
+        internal bool isExistSupplier(Supplier supplier)
+        {
+            using (var db = new InventoryDB())
+            {
+
+                // 是否存在商品
+                var query = from p in db.Suppliers
+                            where p.供应商名称 == supplier.供应商名称
+                            select p;
+                // 如果存在
+                if (query.Count() != 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal void InsertSupplier(Supplier supplier)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Insert(supplier);
+            }
+        }
+
+        internal void UpdateSupplier(Supplier supplier)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Update(supplier);
+            }
+        }
+        #endregion
     }
 }

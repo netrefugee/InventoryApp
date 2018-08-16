@@ -3,11 +3,11 @@
 namespace ModuleSetting.Views
 {
     /// <summary>
-    /// Interaction logic for MasterView
+    /// Interaction logic for ClienterView
     /// </summary>
-    public partial class MasterView : UserControl
+    public partial class ClientView : UserControl
     {
-        public MasterView()
+        public ClientView()
         {
             InitializeComponent();
         }

@@ -25,7 +25,6 @@ namespace Models
 		public ITable<Farmer>          Farmers          { get { return this.GetTable<Farmer>(); } }
 		public ITable<Good>            Goods            { get { return this.GetTable<Good>(); } }
 		public ITable<Log>             Logs             { get { return this.GetTable<Log>(); } }
-		public ITable<Master>          Masters          { get { return this.GetTable<Master>(); } }
 		public ITable<Purchase>        Purchases        { get { return this.GetTable<Purchase>(); } }
 		public ITable<Retail>          Retails          { get { return this.GetTable<Retail>(); } }
 		public ITable<Stock>           Stocks           { get { return this.GetTable<Stock>(); } }
@@ -59,21 +58,39 @@ namespace Models
 		[PrimaryKey, Identity   ] public long   客户ID     { get; set; } // integer
 		[Column,     NotNull    ] public string 姓名       { get; set; } // text(max)
 		[Column,        Nullable] public string 电话       { get; set; } // text(max)
-		[Column,        Nullable] public string 地址       { get; set; } // text(max)
 		[Column,        Nullable] public string 商店名称     { get; set; } // text(max)
-		[Column,        Nullable] public string 办公地址     { get; set; } // text(max)
+		[Column,        Nullable] public string 商店地址     { get; set; } // text(max)
 		[Column,        Nullable] public string 库存地址     { get; set; } // text(max)
-		[Column,        Nullable] public string 邮箱       { get; set; } // text(max)
 		[Column,        Nullable] public string 社会统一信用代码 { get; set; } // text(max)
+
+		#region Associations
+
+		/// <summary>
+		/// FK_clientAccount_0_0_BackReference
+		/// </summary>
+		[Association(ThisKey="客户ID", OtherKey="客户ID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<ClientAccount> ClientAccounts { get; set; }
+
+		#endregion
 	}
 
 	[Table("clientAccount")]
 	public partial class ClientAccount
 	{
-		[Column("clientAccountID"), PrimaryKey, Identity] public long   ClientAccountID      { get; set; } // integer
-		[Column("clientAccount"),   NotNull             ] public double ClientAccount_Column { get; set; } // real
-		[Column("clientID"),        NotNull             ] public long   ClientID             { get; set; } // integer
-		[Column("dataTime"),        NotNull             ] public string DataTime             { get; set; } // text(max)
+		[PrimaryKey, Identity] public long   客户账户ID { get; set; } // integer
+		[Column,     NotNull ] public double 账户往来   { get; set; } // real
+		[Column,     NotNull ] public long   客户ID   { get; set; } // integer
+		[Column,     NotNull ] public string 时间     { get; set; } // text(max)
+
+		#region Associations
+
+		/// <summary>
+		/// FK_clientAccount_0_0
+		/// </summary>
+		[Association(ThisKey="客户ID", OtherKey="客户ID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_clientAccount_0_0", BackReferenceName="ClientAccounts")]
+		public Client 客户 { get; set; }
+
+		#endregion
 	}
 
 	[Table("farmer")]
@@ -121,39 +138,6 @@ namespace Models
 		[Column("logAction"),               NotNull] public string LogAction   { get; set; } // text(max)
 	}
 
-	[Table("master")]
-	public partial class Master
-	{
-		[Column("payee"),    PrimaryKey,  NotNull] public string Payee    { get; set; } // text(max)
-		[Column("phone"),                 NotNull] public string Phone    { get; set; } // text(max)
-		[Column("email"),       Nullable         ] public string Email    { get; set; } // text(max)
-		[Column("wechat"),      Nullable         ] public string Wechat   { get; set; } // text(max)
-		[Column("password"),              NotNull] public string Password { get; set; } // text(max)
-		[Column("username"),              NotNull] public string Username { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_purchase_0_0_BackReference
-		/// </summary>
-		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Purchase> Purchases { get; set; }
-
-		/// <summary>
-		/// FK_retail_0_0_BackReference
-		/// </summary>
-		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Retail> Retails { get; set; }
-
-		/// <summary>
-		/// FK_wholesale_0_0_BackReference
-		/// </summary>
-		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
-		public IEnumerable<Wholesale> Wholesales { get; set; }
-
-		#endregion
-	}
-
 	[Table("purchase")]
 	public partial class Purchase
 	{
@@ -169,16 +153,6 @@ namespace Models
 		[Column("isReturn"),   NotNull             ] public long   IsReturn     { get; set; } // integer
 		[Column("supplierID"), NotNull             ] public long   SupplierID   { get; set; } // integer
 		[Column("payee"),      NotNull             ] public string Payee        { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_purchase_0_0
-		/// </summary>
-		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_0_0", BackReferenceName="Purchases")]
-		public Master Master { get; set; }
-
-		#endregion
 	}
 
 	[Table("retail")]
@@ -196,16 +170,6 @@ namespace Models
 		[Column("isReturn"),  NotNull             ] public long   IsReturn     { get; set; } // integer
 		[Column("farmerID"),  NotNull             ] public long   FarmerID     { get; set; } // integer
 		[Column("payee"),     NotNull             ] public string Payee        { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_retail_0_0
-		/// </summary>
-		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_retail_0_0", BackReferenceName="Retails")]
-		public Master Master { get; set; }
-
-		#endregion
 	}
 
 	[Table("stock")]
@@ -223,7 +187,7 @@ namespace Models
 	{
 		[PrimaryKey, Identity   ] public long   供应商ID   { get; set; } // integer
 		[Column,     NotNull    ] public string 供应商名称   { get; set; } // text(max)
-		[Column,     NotNull    ] public string 联系人     { get; set; } // text(max)
+		[Column,        Nullable] public string 联系人     { get; set; } // text(max)
 		[Column,        Nullable] public string 电话      { get; set; } // text(max)
 		[Column,        Nullable] public string 传真      { get; set; } // text(max)
 		[Column,        Nullable] public string 邮箱      { get; set; } // text(max)
@@ -259,16 +223,6 @@ namespace Models
 		[Column("isReturn"),    NotNull             ] public long   IsReturn     { get; set; } // integer
 		[Column("clientID"),    NotNull             ] public long   ClientID     { get; set; } // integer
 		[Column("payee"),       NotNull             ] public string Payee        { get; set; } // text(max)
-
-		#region Associations
-
-		/// <summary>
-		/// FK_wholesale_0_0
-		/// </summary>
-		[Association(ThisKey="Payee", OtherKey="Payee", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_0_0", BackReferenceName="Wholesales")]
-		public Master Master { get; set; }
-
-		#endregion
 	}
 
 	public static partial class TableExtensions
@@ -279,10 +233,10 @@ namespace Models
 				t.客户ID == 客户ID);
 		}
 
-		public static ClientAccount Find(this ITable<ClientAccount> table, long ClientAccountID)
+		public static ClientAccount Find(this ITable<ClientAccount> table, long 客户账户ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.ClientAccountID == ClientAccountID);
+				t.客户账户ID == 客户账户ID);
 		}
 
 		public static Farmer Find(this ITable<Farmer> table, long 农户ID)
@@ -301,12 +255,6 @@ namespace Models
 		{
 			return table.FirstOrDefault(t =>
 				t.LogID == LogID);
-		}
-
-		public static Master Find(this ITable<Master> table, string Payee)
-		{
-			return table.FirstOrDefault(t =>
-				t.Payee == Payee);
 		}
 
 		public static Purchase Find(this ITable<Purchase> table, long PurchaseID)

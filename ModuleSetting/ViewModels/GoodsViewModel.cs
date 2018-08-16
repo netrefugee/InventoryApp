@@ -25,7 +25,7 @@ namespace ModuleSetting.ViewModels
     {
         public GoodsViewModel()
         {
-            good = goodInit;
+            good = goodInit();
 
             IDataService dataService = new XmlDataService();
             isHighToxicityList = dataService.IsHighToxicityList();  // 是否高毒
@@ -36,7 +36,10 @@ namespace ModuleSetting.ViewModels
 
         }
 
-        private Good goodInit = new Good() { 是否高毒 = "普通商品", 单位小 = "瓶", 单位大 = "箱" };
+        private Good goodInit()
+        {
+            return new Good() { 是否高毒 = "普通商品", 单位小 = "瓶", 单位大 = "箱" };
+        }
 
         private CurrentState currentState;
         public CurrentState CurrentState
@@ -120,7 +123,7 @@ namespace ModuleSetting.ViewModels
         void ExecuteShowAddGoodPanel()
         {
             IsShowAddGoodPanel = Visibility.Visible;
-            Good = goodInit;
+            Good = goodInit();
             CurrentState = new CurrentState() { StateNow = State.Insert, Info = "正在【添加】商品" };
         }
         // 取消
@@ -137,9 +140,10 @@ namespace ModuleSetting.ViewModels
 
         void ExecuteHideAddGoodPanel()
         {
-            Good = goodInit;
+
+            Good = goodInit();
             IsShowAddGoodPanel = Visibility.Collapsed;
-            CurrentState = new CurrentState() {  StateNow= State.None, Info=""};
+            CurrentState = new CurrentState() { StateNow = State.None, Info = "" };
 
         }
         // 刷新
@@ -166,6 +170,7 @@ namespace ModuleSetting.ViewModels
             if (mr == MessageBoxResult.OK)
             {
                 Good = parameter;
+
                 // 打开面板
                 IsShowAddGoodPanel = Visibility.Visible;
                 CurrentState = new CurrentState() {  StateNow= State.Update, Info= $"正在【修改】商品-->{parameter.商品名称}" };
@@ -184,6 +189,7 @@ namespace ModuleSetting.ViewModels
         void ExecuteSaveAddGood()
         {
             bool isNull = false;
+            
             // 判断未填写
             if (Utils.Utils.IsNullOrEmpty(good.商品名称)) { isNull = true; DXMessageBox.Show("商品名称! 未填写"); return; }
             if (Utils.Utils.IsNullOrEmpty(good.种类小)) { isNull = true; DXMessageBox.Show(" 商品种类(小)! 未填写"); return; }
@@ -195,6 +201,15 @@ namespace ModuleSetting.ViewModels
             if (Utils.Utils.IsNullOrEmpty(good.商品追溯码前11位)) { isNull = true; DXMessageBox.Show("商品追溯码 未填写"); return; }
             if (Utils.Utils.IsNullOrEmpty(good.生产厂家)) { isNull = true; DXMessageBox.Show("生产厂家 未填写"); return; }
 
+            // 判断两边是否有空格
+            good.商品名称 = good.商品名称.Trim();
+            good.种类小 = good.种类小.Trim();
+            good.种类大 = good.种类大.Trim();
+            good.是否高毒 = good.是否高毒.Trim();
+            good.单位大 = good.单位大.Trim();
+            good.单位小 = good.单位小.Trim();
+            good.商品追溯码前11位 = good.商品追溯码前11位.Trim();
+            good.生产厂家 = good.生产厂家.Trim();
 
             DbDataService dbDataService = new DbDataService();
             if (CurrentState.StateNow== State.Insert)
@@ -216,7 +231,7 @@ namespace ModuleSetting.ViewModels
             // 更新数据
             ExecuteUpdateGoods();
             // 重置数据
-            Good = goodInit;
+            Good = goodInit();
             // 关闭面板
             ExecuteHideAddGoodPanel();
         }

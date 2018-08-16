@@ -1,4 +1,6 @@
-﻿using InventoryApp.Services;
+﻿using DevExpress.Xpf.Core;
+using InventoryApp.Services;
+using InventoryApp.Views;
 using LinqToDB;
 using Models;
 using Prism.Commands;
@@ -19,10 +21,12 @@ namespace InventoryApp.ViewModels
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-            
+
             NavigateCommand = new DelegateCommand<string>(Navigate);
             TestCommand = new DelegateCommand<string>(Test);
+     
         }
+ 
         // 标题
         private string _title = "Prism Unity Application";
         public string Title
@@ -30,13 +34,32 @@ namespace InventoryApp.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
+        //// 是否显示等待
+        //private bool isSplashScreenShown;
+        //public bool IsSplashScreenShown
+        //{
+        //    get { return isSplashScreenShown; }
+        //    set { SetProperty(ref isSplashScreenShown, value); }
+        //}
+
+             
         // 导航命令
         public DelegateCommand<string> NavigateCommand { get; private set; }
         private void Navigate(string navigatePath)
         {
             if (navigatePath != null)
-                _regionManager.RequestNavigate("ContentRegion", navigatePath);
+            {
+                DXSplashScreen.Show(typeof(NavigateSplashScreen));
+                _regionManager.RequestNavigate("ContentRegion", navigatePath, NavigationComplete);
+            }
         }
+        // 导航完成
+        private void NavigationComplete(NavigationResult result)
+        {
+            DXSplashScreen.Close();
+        }
+
+
         // 测试命令
         public DelegateCommand<string> TestCommand { get; private set; }
         private void Test(string test)
@@ -55,7 +78,7 @@ namespace InventoryApp.ViewModels
                 //    Console.WriteLine(c.Style);
 
                 //db.Goods.Insert(() => new Good() { Name = "哈哈" });
-             
+
             }
         }
 

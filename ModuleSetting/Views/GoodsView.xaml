@@ -46,7 +46,7 @@
                         <TextBox   materialDesign:HintAssist.Hint="生产厂家" Width="150" Text="{Binding Good.生产厂家}"/>
                         <ComboBox  materialDesign:HintAssist.Hint="是否高毒" ItemsSource="{Binding IsHighToxicityList}"
                                SelectedValue="{Binding Good.是否高毒}"/>
-                        <ComboBox  materialDesign:HintAssist.Hint="商品类别(大)" ItemsSource="{Binding StyleBigList}"
+                        <ComboBox  materialDesign:HintAssist.Hint="种类(大)" ItemsSource="{Binding StyleBigList}"
                                SelectedValue="{Binding Good.种类大}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
@@ -55,7 +55,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ComboBox>
-                        <ComboBox  materialDesign:HintAssist.Hint="商品类别(小)" ItemsSource="{Binding StyleSmallList}" 
+                        <ComboBox  materialDesign:HintAssist.Hint="种类(小)" ItemsSource="{Binding StyleSmallList}" 
                                SelectedValue="{Binding Good.种类小}"
                                />
                         <StackPanel Orientation="Horizontal">

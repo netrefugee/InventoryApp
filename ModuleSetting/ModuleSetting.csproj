@@ -99,18 +99,16 @@
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\XmlDataService.cs" />
     <Compile Include="Utils\DbDataUtil.cs" />
-    <Compile Include="Utils\StringLongConverter.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\XmlDataUtil.cs" />
-    <Compile Include="ViewModels\ClienterViewModel.cs" />
+    <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FarmerViewModel.cs" />
     <Compile Include="ViewModels\GoodsViewModel.cs" />
     <Compile Include="ViewModels\LoggerViewModel.cs" />
-    <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModel.cs" />
     <Compile Include="ViewModels\WholesaleViewModel.cs" />
-    <Compile Include="Views\ClienterView.xaml.cs">
-      <DependentUpon>ClienterView.xaml</DependentUpon>
+    <Compile Include="Views\ClientView.xaml.cs">
+      <DependentUpon>ClientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FarmerView.xaml.cs">
       <DependentUpon>FarmerView.xaml</DependentUpon>
@@ -120,9 +118,6 @@
     </Compile>
     <Compile Include="Views\LoggerView.xaml.cs">
       <DependentUpon>LoggerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MasterView.xaml.cs">
-      <DependentUpon>MasterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SupplierView.xaml.cs">
       <DependentUpon>SupplierView.xaml</DependentUpon>
@@ -140,7 +135,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ClienterView.xaml">
+    <Page Include="Views\ClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,10 +151,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MasterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SupplierView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,7 +160,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InventoryDbLibrary\InventoryDbLibrary.csproj">
       <Project>{B4FC9D3A-5C6B-4490-9DF7-DB49489AFEDE}</Project>

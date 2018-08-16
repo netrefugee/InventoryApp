@@ -27,10 +27,9 @@ namespace ModuleSetting
         {
             _container.RegisterTypeForNavigation<FarmerView>();
             _container.RegisterTypeForNavigation<GoodsView>();
-            _container.RegisterTypeForNavigation<ClienterView>();
+            _container.RegisterTypeForNavigation<ClientView>();
             _container.RegisterTypeForNavigation<LoggerView>();
             _container.RegisterTypeForNavigation<SupplierView>();
-            _container.RegisterTypeForNavigation<MasterView>();
             _container.RegisterTypeForNavigation<WholesaleView>();
 
         }
