@@ -55,9 +55,9 @@
             </StackPanel>
         </materialDesign:Card>
         <!--<Button Content="test" Click="Button_Click"></Button>-->
-        <dxg:GridControl  ItemsSource="{Binding Clients}" x:Name="ClientsGridControl"  AutoGenerateColumns="AddNew" >
-            <dxg:GridControl.Columns>
+        <dxg:GridControl AutoPopulateColumns="True" ItemsSource="{Binding Clients}"  AutoGenerateColumns="AddNew">
 
+            <dxg:GridControl.Columns>
                 <dxg:GridColumn  FieldName="编辑" Width="50" >
                     <dxg:GridColumn.CellTemplate>
                         <DataTemplate>
@@ -68,16 +68,41 @@
                             </Button>
                         </DataTemplate>
                     </dxg:GridColumn.CellTemplate>
-
                 </dxg:GridColumn>
-
-
             </dxg:GridControl.Columns>
             <dxg:GridControl.View >
                 <dxg:TableView  AllowEditing="False"  ShowGroupPanel="False"/>
             </dxg:GridControl.View>
 
+            <dxg:GridControl.DetailDescriptor>
+                <dxg:DataControlDetailDescriptor   ItemsSourceBinding="{Binding ClientAccounts}">
+                    <dxg:GridControl AutoPopulateColumns="True" AutoGenerateColumns="AddNew" >
+    
+                    </dxg:GridControl>
+                </dxg:DataControlDetailDescriptor>
+            </dxg:GridControl.DetailDescriptor>
         </dxg:GridControl>
+
+
+
+        <!--<dxg:GridControl  ItemsSource="{Binding Clients}" x:Name="ClientsGridControl"  AutoGenerateColumns="AddNew" >
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn  FieldName="编辑" Width="50" >
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="50" Height="20" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+                                  Command="{Binding DataContext.EditClient, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
+                                    CommandParameter="{Binding  ElementName=ClientsGridControl,Path=SelectedItem}">
+                                <materialDesign:PackIcon Kind="TableEdit" />
+                            </Button>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View >
+                <dxg:TableView  AllowEditing="False"  ShowGroupPanel="False"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>-->
 
 
     </DockPanel>
