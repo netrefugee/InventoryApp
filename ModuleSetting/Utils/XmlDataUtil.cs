@@ -10,7 +10,7 @@ namespace Xml.Services
     class XmlDataUtil
     {
 
-        public static string Path = "Data/InventoryData.xml";
+        public static string Path = "Data/ModuleSetting.xml";
         /// <summary>
         /// 读取id等于某一数值的节点下的值
         /// </summary>

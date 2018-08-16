@@ -45,5 +45,8 @@
     <address id="地址">东丰县</address>
     <phone id="电话">13943722172</phone>
     <creditCode id="社会统一信用代码">19203812093812093810</creditCode>
-  </store>
+    <payee id="收款人">yy</payee>
+    <payee id="收款人">tt</payee>
+  
+</store>
 </inventoryData>

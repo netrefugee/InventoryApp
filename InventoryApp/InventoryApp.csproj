@@ -197,11 +197,6 @@
     <Resource Include="LinqToDB.Templates\CopyMe.SQLite.tt.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\InventoryData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Views\DXSplashScreen\Image.png" />
     <Resource Include="Views\DXSplashScreen\Logo.png" />
   </ItemGroup>

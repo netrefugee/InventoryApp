@@ -161,6 +161,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\ModuleSetting.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
