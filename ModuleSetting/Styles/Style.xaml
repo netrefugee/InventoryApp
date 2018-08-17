@@ -27,7 +27,15 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-    
+
+    <!--    TextBlock -->
+    <Style TargetType="{x:Type GridSplitter}"  >
+        <Setter Property="Width" Value="6"/>
+        <Setter Property="Margin" Value="1,0,1,0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+ 
     <!--    Button -->
     <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Margin" Value="4,2,4,2"/>

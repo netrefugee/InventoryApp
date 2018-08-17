@@ -1,4 +1,6 @@
-﻿using Models;
+﻿using DevExpress.Xpf.Core;
+using InventoryApp.Views;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,10 +19,10 @@ namespace InventoryApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
+            DXSplashScreen.Show(typeof(NavigateSplashScreen));
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run();
-
+            DXSplashScreen.Close();
             //using (var db = new InventoryDB())
             //{
             //    var q =

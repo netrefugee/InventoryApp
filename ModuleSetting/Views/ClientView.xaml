@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <DockPanel >
+    <DockPanel LastChildFill="True">
         <StackPanel Orientation="Horizontal"  DockPanel.Dock="Top" >
             <Button x:Name="addClientButton" Content="添加客户" Command="{Binding ShowAddClientPanel}" Margin="3"/>
             <Button   Command="{Binding UpdateClients}" Content="刷新" Margin="3"/>
@@ -55,55 +55,71 @@
             </StackPanel>
         </materialDesign:Card>
         <!--<Button Content="test" Click="Button_Click"></Button>-->
-        <dxg:GridControl AutoPopulateColumns="True" ItemsSource="{Binding Clients}"  AutoGenerateColumns="AddNew">
+        <Grid  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <dxg:GridControl.Columns>
-                <dxg:GridColumn  FieldName="编辑" Width="50" >
-                    <dxg:GridColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Width="50" Height="20" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+
+            <dxg:GridControl ItemsSource="{Binding Clients}" Grid.Column="0"  AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged" >
+ 
+                <dxg:GridControl.View >
+                    <dxg:TableView  AllowEditing="False" BestFitMode="VisibleRows" AllowBestFit="True" ShowGroupPanel="False">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridControl.Columns>
+                    <!-- [编辑] 列-->
+                    <dxg:GridColumn  FieldName="编辑" Width="50" >
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button  Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
                                   Command="{Binding DataContext.EditClient, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
-                                    CommandParameter="{Binding  ElementName=ClientsGridControl,Path=SelectedItem}">
-                                <materialDesign:PackIcon Kind="TableEdit" />
-                            </Button>
-                        </DataTemplate>
-                    </dxg:GridColumn.CellTemplate>
-                </dxg:GridColumn>
-            </dxg:GridControl.Columns>
-            <dxg:GridControl.View >
-                <dxg:TableView  AllowEditing="False"  ShowGroupPanel="False"/>
-            </dxg:GridControl.View>
-
-            <dxg:GridControl.DetailDescriptor>
-                <dxg:DataControlDetailDescriptor   ItemsSourceBinding="{Binding ClientAccounts}">
-                    <dxg:GridControl AutoPopulateColumns="True" AutoGenerateColumns="AddNew" >
-    
-                    </dxg:GridControl>
-                </dxg:DataControlDetailDescriptor>
-            </dxg:GridControl.DetailDescriptor>
-        </dxg:GridControl>
-
-
-
-        <!--<dxg:GridControl  ItemsSource="{Binding Clients}" x:Name="ClientsGridControl"  AutoGenerateColumns="AddNew" >
-            <dxg:GridControl.Columns>
-                <dxg:GridColumn  FieldName="编辑" Width="50" >
-                    <dxg:GridColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Width="50" Height="20" Style="{StaticResource MaterialDesignRaisedLightButton}"  
-                                  Command="{Binding DataContext.EditClient, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
-                                    CommandParameter="{Binding  ElementName=ClientsGridControl,Path=SelectedItem}">
-                                <materialDesign:PackIcon Kind="TableEdit" />
-                            </Button>
-                        </DataTemplate>
-                    </dxg:GridColumn.CellTemplate>
-                </dxg:GridColumn>
-            </dxg:GridControl.Columns>
-            <dxg:GridControl.View >
-                <dxg:TableView  AllowEditing="False"  ShowGroupPanel="False"/>
-            </dxg:GridControl.View>
-        </dxg:GridControl>-->
+                                    CommandParameter="{Binding Path=SelectedItem,  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl}}">
+                                    <materialDesign:PackIcon Kind="TableEdit" />
+                                </Button>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                    <!-- [账户] 列-->
+                    <dxg:GridColumn  FieldName="账户往来" Width="90" >
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button  Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+                                  Command="{Binding DataContext.LoadClientAccounts, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
+                                    CommandParameter="{Binding Path=SelectedItem,  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl}}">
+                                    <materialDesign:PackIcon Kind="AccountMultiple" />
+                                </Button>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                </dxg:GridControl.Columns>
 
 
+
+            </dxg:GridControl>
+            <GridSplitter  Grid.Column="1"  />
+            <dxg:GridControl  ItemsSource="{Binding ClientAccounts}" Grid.Column="2"   AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged">
+                <dxg:GridControl.View >
+                    <dxg:TableView  AllowEditing="False" BestFitMode="VisibleRows" AllowBestFit="True"  ShowGroupPanel="False"/>
+                </dxg:GridControl.View>
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn  FieldName="编辑" Width="50" >
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button  Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+                                  Command="{Binding DataContext.EditClientsAccount, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
+                                  CommandParameter="{Binding Path=SelectedItem,  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl}}">
+                                    <materialDesign:PackIcon Kind="TableEdit" />
+                                </Button>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                </dxg:GridControl.Columns>
+
+            </dxg:GridControl>
+           
+        </Grid>
     </DockPanel>
 </UserControl>

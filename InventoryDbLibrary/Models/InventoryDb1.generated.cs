@@ -71,16 +71,23 @@ namespace Models
 		[Association(ThisKey="客户ID", OtherKey="客户ID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
 		public IEnumerable<ClientAccount> ClientAccounts { get; set; }
 
+		/// <summary>
+		/// FK_wholesale_1_0_BackReference
+		/// </summary>
+		[Association(ThisKey="客户ID", OtherKey="ClientID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<Wholesale> Wholesales { get; set; }
+
 		#endregion
 	}
 
 	[Table("clientAccount")]
 	public partial class ClientAccount
 	{
-		[PrimaryKey, Identity] public long   客户账户ID { get; set; } // integer
 		[Column,     NotNull ] public double 账户往来   { get; set; } // real
-		[Column,     NotNull ] public long   客户ID   { get; set; } // integer
 		[Column,     NotNull ] public string 时间     { get; set; } // text(max)
+		[Column,     NotNull ] public string 收入或支出  { get; set; } // text(max)
+		[PrimaryKey, Identity] public long   客户账户ID { get; set; } // integer
+		[Column,     NotNull ] public long   客户ID   { get; set; } // integer
 
 		#region Associations
 
@@ -223,6 +230,16 @@ namespace Models
 		[Column("isReturn"),    NotNull             ] public long   IsReturn     { get; set; } // integer
 		[Column("clientID"),    NotNull             ] public long   ClientID     { get; set; } // integer
 		[Column("payee"),       NotNull             ] public string Payee        { get; set; } // text(max)
+
+		#region Associations
+
+		/// <summary>
+		/// FK_wholesale_1_0
+		/// </summary>
+		[Association(ThisKey="ClientID", OtherKey="客户ID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_wholesale_1_0", BackReferenceName="Wholesales")]
+		public Client Client { get; set; }
+
+		#endregion
 	}
 
 	public static partial class TableExtensions

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using DevExpress.Xpf.Grid;
+using System.Windows.Controls;
 
 namespace ModuleSetting.Views
 {
@@ -10,6 +11,14 @@ namespace ModuleSetting.Views
         public ClientView()
         {
             InitializeComponent();
+        }
+
+        private void GridControl_ItemsSourceChanged(object sender, ItemsSourceChangedEventArgs e)
+        {
+            if (e.Source is GridControl)
+            {
+                ((TableView)((GridControl)e.Source).View).BestFitColumns();
+            }
         }
     }
 }

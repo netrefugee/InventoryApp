@@ -67,19 +67,42 @@ namespace ModuleSetting.ViewModels
         public DelegateCommand HideAddClientPanel =>
             _hideAddClientPanel ?? (_hideAddClientPanel = new DelegateCommand(ExecuteHideAddClientPanel));
 
-        private IQueryable clients;
-        public IQueryable Clients
+        private IQueryable<Client> clients;
+        public IQueryable<Client> Clients
         {
             get { return clients; }
             set { SetProperty(ref clients, value); }
         }
-
+        private IQueryable<ClientAccount> clientAccounts;
+        public IQueryable<ClientAccount> ClientAccounts
+        {
+            get { return clientAccounts; }
+            set { SetProperty(ref clientAccounts, value); }
+        }
         void ExecuteHideAddClientPanel()
         {
             Client = clientInit();
             IsShowAddClientPanel = Visibility.Collapsed;
             CurrentState = new CurrentState() { StateNow = State.None, Info = "" };
 
+        }
+        // 载入clientAccount
+        private DelegateCommand<Client> loadClientAccounts;
+        public DelegateCommand<Client> LoadClientAccounts =>
+            loadClientAccounts ?? (loadClientAccounts = new DelegateCommand<Client>(ExecuteLoadClientAccounts));
+
+        void ExecuteLoadClientAccounts(Client parameter)
+        {
+            if (parameter != null)
+            {
+                using (var db = new InventoryDB())
+                {
+                    var query = from p in db.ClientAccounts
+                                where parameter.客户ID == p.客户ID
+                                select p;
+                    ClientAccounts = query;
+                }
+            }
         }
         // 刷新
         private DelegateCommand updateClients;
