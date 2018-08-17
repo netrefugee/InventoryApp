@@ -160,5 +160,23 @@ namespace ModuleSetting.Services
             }
         }
         #endregion
+
+        #region 客户账户
+        internal void InsertClientAccount(ClientAccount clientAccount)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Insert(clientAccount);
+            }
+        }
+
+        internal void UpdateClientAccount(ClientAccount clientAccount)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Update(clientAccount);
+            }
+        }
+        #endregion
     }
 }

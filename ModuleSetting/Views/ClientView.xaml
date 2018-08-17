@@ -22,37 +22,71 @@
         <StackPanel Orientation="Horizontal"  DockPanel.Dock="Top" >
             <Button x:Name="addClientButton" Content="添加客户" Command="{Binding ShowAddClientPanel}" Margin="3"/>
             <Button   Command="{Binding UpdateClients}" Content="刷新" Margin="3"/>
+            <Button x:Name="addClientAccountButton"  Content="添加往来" Command="{Binding ShowAddClientAccountPanel}" Margin="20,3"/>
         </StackPanel>
 
         <materialDesign:Card  Margin="3" DockPanel.Dock="Top" materialDesign:ShadowAssist.ShadowDepth="Depth1">
-            <StackPanel  Visibility="{Binding IsShowAddClientPanel}"  Orientation="Vertical">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
-                    <WrapPanel  Grid.Row="0" Grid.Column="1">
-                        <TextBox   materialDesign:HintAssist.Hint="姓名"   Text="{Binding Client.姓名}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="电话" Width="150" Text="{Binding Client.电话}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="商店名称"  Text="{Binding Client.商店名称}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="商店地址"  Text="{Binding Client.商店地址}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="库存地址"  Text="{Binding Client.库存地址}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="社会统计信用代码" Width="150"  Text="{Binding Client.社会统一信用代码}"/>
-                    </WrapPanel>
-                </Grid>
-                <StackPanel Orientation="Horizontal" >
-                    <Button Margin="3"  Command="{Binding SaveAddClient}" Content="保存" Width="80"/>
-                    <Button  Margin="3" Command="{Binding HideAddClientPanel}" Content="取消" Width="80"/>
-                    <TextBlock Foreground="Red" Text="{Binding CurrentState.Info}"></TextBlock>
+            <StackPanel Orientation="Vertical">
+                <StackPanel  Visibility="{Binding IsShowAddClientPanel}"  Orientation="Vertical">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
+                        <WrapPanel  Grid.Row="0" Grid.Column="1">
+                            <TextBox   materialDesign:HintAssist.Hint="姓名"   Text="{Binding Client.姓名}"/>
+                            <TextBox   materialDesign:HintAssist.Hint="电话" Width="150" Text="{Binding Client.电话}"/>
+                            <TextBox   materialDesign:HintAssist.Hint="商店名称"  Text="{Binding Client.商店名称}"/>
+                            <TextBox   materialDesign:HintAssist.Hint="商店地址"  Text="{Binding Client.商店地址}"/>
+                            <TextBox   materialDesign:HintAssist.Hint="库存地址"  Text="{Binding Client.库存地址}"/>
+                            <TextBox   materialDesign:HintAssist.Hint="社会统计信用代码" Width="150"  Text="{Binding Client.社会统一信用代码}"/>
+                        </WrapPanel>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Margin="3"  Command="{Binding SaveAddClient}" Content="保存" Width="80"/>
+                        <Button  Margin="3" Command="{Binding HideAddClientPanel}" Content="取消" Width="80"/>
+                        <TextBlock Foreground="Red" Text="{Binding CurrentState.Info}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel  Visibility="{Binding IsShowAddClientAccountPanel}"  Orientation="Vertical">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
+                        <WrapPanel  Grid.Row="0" Grid.Column="1">
+                            <ComboBox   materialDesign:HintAssist.Hint="收入或支出"   Text="{Binding ClientAccount.收入或支出}">
+                                <ComboBoxItem>收入</ComboBoxItem>
+                                <ComboBoxItem>支出</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox   materialDesign:HintAssist.Hint="金额(元)"  Text="{Binding ClientAccount.金额}"/>
+                            <!--<TextBox   materialDesign:HintAssist.Hint="时间"  Text="{Binding ClientAccount.时间}"/>-->
+                            <DatePicker   VerticalAlignment="Center" Margin="0,20,0,0" FontSize="16" Text="{Binding ClientAccount.时间,Mode=TwoWay}" materialDesign:HintAssist.Hint="Locale Date" />
+                        </WrapPanel>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Margin="3"  Command="{Binding SaveAddClientAccount}" Content="保存" Width="80"/>
+                        <Button  Margin="3" Command="{Binding HideAddClientAccountPanel}" Content="取消" Width="80"/>
+                        <TextBlock Foreground="Red" Text="{Binding ClientAccountState.Info}"></TextBlock>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
+
         </materialDesign:Card>
         <!--<Button Content="test" Click="Button_Click"></Button>-->
         <Grid  >
@@ -63,18 +97,17 @@
             </Grid.ColumnDefinitions>
 
 
-            <dxg:GridControl ItemsSource="{Binding Clients}" Grid.Column="0"  AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged" >
- 
+            <dxg:GridControl  ItemsSource="{Binding Clients}" Grid.Column="0"  AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged" SelectionMode="Cell" >
+
                 <dxg:GridControl.View >
-                    <dxg:TableView  AllowEditing="False" BestFitMode="VisibleRows" AllowBestFit="True" ShowGroupPanel="False">
-                    </dxg:TableView>
+                    <dxg:TableView  AllowEditing="False" BestFitMode="VisibleRows" AllowBestFit="True" ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
                 <dxg:GridControl.Columns>
                     <!-- [编辑] 列-->
-                    <dxg:GridColumn  FieldName="编辑" Width="50" >
+                    <dxg:GridColumn  FieldName="编辑" Width="60" >
                         <dxg:GridColumn.CellTemplate>
                             <DataTemplate>
-                                <Button  Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+                                <Button   Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
                                   Command="{Binding DataContext.EditClient, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
                                     CommandParameter="{Binding Path=SelectedItem,  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl}}">
                                     <materialDesign:PackIcon Kind="TableEdit" />
@@ -86,7 +119,7 @@
                     <dxg:GridColumn  FieldName="账户往来" Width="90" >
                         <dxg:GridColumn.CellTemplate>
                             <DataTemplate>
-                                <Button  Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+                                <Button   Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
                                   Command="{Binding DataContext.LoadClientAccounts, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
                                     CommandParameter="{Binding Path=SelectedItem,  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl}}">
                                     <materialDesign:PackIcon Kind="AccountMultiple" />
@@ -100,15 +133,15 @@
 
             </dxg:GridControl>
             <GridSplitter  Grid.Column="1"  />
-            <dxg:GridControl  ItemsSource="{Binding ClientAccounts}" Grid.Column="2"   AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged">
+            <dxg:GridControl  ItemsSource="{Binding ClientAccounts}" Grid.Column="2"   AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged" SelectionMode="Cell">
                 <dxg:GridControl.View >
                     <dxg:TableView  AllowEditing="False" BestFitMode="VisibleRows" AllowBestFit="True"  ShowGroupPanel="False"/>
                 </dxg:GridControl.View>
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn  FieldName="编辑" Width="50" >
+                    <dxg:GridColumn  FieldName="编辑" Width="60" >
                         <dxg:GridColumn.CellTemplate>
                             <DataTemplate>
-                                <Button  Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+                                <Button    Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
                                   Command="{Binding DataContext.EditClientsAccount, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
                                   CommandParameter="{Binding Path=SelectedItem,  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl}}">
                                     <materialDesign:PackIcon Kind="TableEdit" />
@@ -119,7 +152,7 @@
                 </dxg:GridControl.Columns>
 
             </dxg:GridControl>
-           
+
         </Grid>
     </DockPanel>
 </UserControl>

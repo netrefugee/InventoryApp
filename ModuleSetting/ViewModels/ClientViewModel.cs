@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using DevExpress.Xpf.Core;
+using Models;
 using ModuleSetting.Models;
 using ModuleSetting.Services;
 using Prism.Commands;
@@ -24,7 +25,10 @@ namespace ModuleSetting.ViewModels
         {
             return new Client() { };
         }
-
+        private ClientAccount clientAccountInit()
+        {
+            return new ClientAccount() { };
+        }
         private CurrentState currentState;
         public CurrentState CurrentState
         {
@@ -32,7 +36,12 @@ namespace ModuleSetting.ViewModels
             set { SetProperty(ref currentState, value); }
         }
 
-
+        private CurrentState clientAccountState;
+        public CurrentState ClientAccountState
+        {
+            get { return clientAccountState; }
+            set { SetProperty(ref clientAccountState, value); }
+        }
 
         // 客户
         private Client client;
@@ -42,7 +51,12 @@ namespace ModuleSetting.ViewModels
             set { SetProperty(ref client, value); }
         }
 
-
+        private ClientAccount clientAccount;
+        public ClientAccount ClientAccount
+        {
+            get { return clientAccount; }
+            set { SetProperty(ref clientAccount, value); }
+        }
 
         // 添加客户
         private Visibility isShowAddClientPanel = Visibility.Collapsed;
@@ -86,6 +100,88 @@ namespace ModuleSetting.ViewModels
             CurrentState = new CurrentState() { StateNow = State.None, Info = "" };
 
         }
+
+        private DelegateCommand hideAddClientAccountPanel;
+        public DelegateCommand HideAddClientAccountPanel =>
+            hideAddClientAccountPanel ?? (hideAddClientAccountPanel = new DelegateCommand(ExecuteHideAddClientAccountPanel));
+
+        void ExecuteHideAddClientAccountPanel()
+        {
+            ClientAccount = clientAccountInit();
+            IsShowAddClientAccountPanel = Visibility.Collapsed;
+            ClientAccountState = new CurrentState() { StateNow = State.None, Info = "" };
+        }
+
+        // 添加 ClientAccount
+        private DelegateCommand saveAddClientAccount;
+        public DelegateCommand SaveAddClientAccount =>
+            saveAddClientAccount ?? (saveAddClientAccount = new DelegateCommand(ExecuteSaveAddClientAccount));
+
+        void ExecuteSaveAddClientAccount()
+        {
+            if (ClientAccounts == null) { DXMessageBox.Show("未找到当前客户往来,请选择一个客户的金额"); return; }
+
+            //bool isNull = false;
+            // 判断未填写
+            if (Utils.Utils.IsNullOrEmpty(clientAccount.收入或支出)) { DevExpress.Xpf.Core.DXMessageBox.Show("收入或支出! 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(clientAccount.时间)) { DevExpress.Xpf.Core.DXMessageBox.Show("时间! 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(clientAccount.金额)) { DevExpress.Xpf.Core.DXMessageBox.Show("金额! 未填写"); return; }
+
+
+
+            DbDataService dbDataService = new DbDataService();
+            if (ClientAccountState.StateNow == State.Insert)
+            {
+
+                dbDataService.InsertClientAccount(clientAccount);
+
+            }
+            if (ClientAccountState.StateNow == State.Update)
+            {
+                dbDataService.UpdateClientAccount(clientAccount);
+            }
+            // 更新数据
+            ExecuteUpdateClientAccounts();
+            // 重置数据
+            ClientAccount = clientAccountInit();
+            // 关闭面板
+            ExecuteHideAddClientAccountPanel();
+        }
+
+        // 更新数据
+        private void ExecuteUpdateClientAccounts()
+        {
+
+            if (clientAccount != null)
+            {
+                using (var db = new InventoryDB())
+                {
+                    var query = from p in db.ClientAccounts
+                                where clientAccount.客户ID == p.客户ID
+                                select p;
+                    ClientAccounts = query;
+                }
+            }
+        }
+
+        private Visibility isShowAddClientAccountPanel = Visibility.Collapsed;
+        public Visibility IsShowAddClientAccountPanel
+        {
+            get { return isShowAddClientAccountPanel; }
+            set { SetProperty(ref isShowAddClientAccountPanel, value); }
+        }
+        // 显示clientacouunt
+        private DelegateCommand showAddClientAccountPanel;
+        public DelegateCommand ShowAddClientAccountPanel =>
+            showAddClientAccountPanel ?? (showAddClientAccountPanel = new DelegateCommand(ExecuteShowAddClientAccountPanel));
+
+        void ExecuteShowAddClientAccountPanel()
+        {
+            IsShowAddClientAccountPanel = Visibility.Visible;
+            ClientAccount = clientAccountInit();
+            ClientAccountState = new CurrentState() { StateNow = State.Insert, Info = $"正在【添加】 往来" };
+        }
+
         // 载入clientAccount
         private DelegateCommand<Client> loadClientAccounts;
         public DelegateCommand<Client> LoadClientAccounts =>
@@ -102,6 +198,11 @@ namespace ModuleSetting.ViewModels
                                 select p;
                     ClientAccounts = query;
                 }
+                if (ClientAccount == null)
+                {
+                    ClientAccount = clientAccountInit();
+                }
+                    ClientAccount.客户ID = parameter.客户ID;
             }
         }
         // 刷新
@@ -130,7 +231,7 @@ namespace ModuleSetting.ViewModels
                 Client = parameter;
                 // 打开面板
                 IsShowAddClientPanel = Visibility.Visible;
-                CurrentState = new CurrentState() { StateNow = State.Update, Info = $"正在【修改】客户信息-->{parameter.姓名}" };
+                CurrentState = new CurrentState() { StateNow = State.Update, Info = $"正在【修改】{parameter.姓名} 的客户信息" };
             }
             else
             {

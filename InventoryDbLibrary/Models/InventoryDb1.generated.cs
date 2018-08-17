@@ -83,7 +83,7 @@ namespace Models
 	[Table("clientAccount")]
 	public partial class ClientAccount
 	{
-		[Column,     NotNull ] public double 账户往来   { get; set; } // real
+		[Column,     NotNull ] public double 金额     { get; set; } // real
 		[Column,     NotNull ] public string 时间     { get; set; } // text(max)
 		[Column,     NotNull ] public string 收入或支出  { get; set; } // text(max)
 		[PrimaryKey, Identity] public long   客户账户ID { get; set; } // integer
