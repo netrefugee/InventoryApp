@@ -102,6 +102,7 @@
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\XmlDataUtil.cs" />
     <Compile Include="ViewModels\AddFarmerWindowViewModel.cs" />
+    <Compile Include="ViewModels\AddGoodWindowViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FarmerViewModel.cs" />
     <Compile Include="ViewModels\GoodsViewModel.cs" />
@@ -110,6 +111,9 @@
     <Compile Include="ViewModels\WholesaleViewModel.cs" />
     <Compile Include="Views\AddFarmerWindow.xaml.cs">
       <DependentUpon>AddFarmerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddGoodWindow.xaml.cs">
+      <DependentUpon>AddGoodWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
@@ -140,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddFarmerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddGoodWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

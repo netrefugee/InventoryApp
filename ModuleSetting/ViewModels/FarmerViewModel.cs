@@ -16,7 +16,7 @@ namespace ModuleSetting.ViewModels
     {
         public FarmerViewModel()
         {
-            IDataService dataService = new XmlDataService();
+           
         }
 
         #region [ 添加农户 ]

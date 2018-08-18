@@ -1,0 +1,78 @@
+﻿<Window     x:Class="ModuleSetting.Views.AddGoodWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:prism="http://prismlibrary.com/"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" 
+        prism:ViewModelLocator.AutoWireViewModel="False" Height="235" Width="1100"  
+    WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window"
+    MouseLeftButtonDown="MoveWindow_MouseLeftButtonDown">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ModuleSetting;component/Styles/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
+        <WrapPanel  Grid.Row="0" Grid.Column="1">
+            <TextBox   materialDesign:HintAssist.Hint="商品追溯码前11位" Width="200" InputMethod.IsInputMethodEnabled="False" Text="{Binding Good.商品追溯码前11位}"/>
+            <TextBox   materialDesign:HintAssist.Hint="商品名称" Text="{Binding Good.商品名称}"/>
+            <TextBox   materialDesign:HintAssist.Hint="生产厂家" Width="150" Text="{Binding Good.生产厂家}"/>
+            <ComboBox  materialDesign:HintAssist.Hint="是否高毒" ItemsSource="{Binding IsHighToxicityList}"
+                               SelectedValue="{Binding Good.是否高毒}"/>
+            <ComboBox  materialDesign:HintAssist.Hint="种类(大)" ItemsSource="{Binding StyleBigList}"
+                               SelectedValue="{Binding Good.种类大}" x:Name="StyleBigCombobox">
+
+            </ComboBox>
+            <ComboBox  materialDesign:HintAssist.Hint="种类(小)" ItemsSource="{Binding StyleSmallList}"  SelectedValue="{Binding Good.种类小}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownOpened">
+                        <i:InvokeCommandAction Command="{Binding LoadStyleSmallList}" 
+                                               CommandParameter="{Binding SelectedValue, ElementName=StyleBigCombobox}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="每" FontWeight="Normal" Margin="0,0,0,-17"/>
+                <ComboBox  materialDesign:HintAssist.Hint="单位(大)" ItemsSource="{Binding BigUnitList}"
+                                   SelectedValue="{Binding Good.单位大}"/>
+                <TextBox   materialDesign:HintAssist.Hint="数量" Width="50" Text="{Binding Good.内含量}"/>
+                <ComboBox   materialDesign:HintAssist.Hint="单位(小)" ItemsSource="{Binding SmallUnitList}"
+                                    SelectedValue="{Binding Good.单位小}"/>
+            </StackPanel>
+        </WrapPanel>
+        <TextBlock Text="其他设置:"  Grid.Row="1" Grid.Column="0"/>
+        <WrapPanel  Grid.Row="1" Grid.Column="1">
+            <TextBox   materialDesign:HintAssist.Hint="主要成分" Text="{Binding Good.主要成分}"/>
+            <TextBox   materialDesign:HintAssist.Hint="农药登记证号" Width="130" Text="{Binding Good.农药登记证号}"/>
+            <TextBox   materialDesign:HintAssist.Hint="箱重量(kg)"  Width="130"  Text="{Binding Good.箱重量}"/>
+            <TextBox   materialDesign:HintAssist.Hint="瓶重量(kg)" Width="130"  Text="{Binding Good.瓶重量}" />
+        </WrapPanel>
+        <TextBlock Text="价格策略:"  Grid.Row="2" Grid.Column="0"/>
+        <WrapPanel  Grid.Row="2" Grid.Column="1">
+            <TextBox   materialDesign:HintAssist.Hint="进货价格(元)" Width="130"   Text="{Binding Good.进货价格}" />
+            <TextBox   materialDesign:HintAssist.Hint="批发价格(元)" Width="130"   Text="{Binding Good.批发价格}" />
+            <TextBox   materialDesign:HintAssist.Hint="零售价格(元)" Width="130"   Text="{Binding Good.零售价格}"  />
+        </WrapPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  >
+            <Button Margin="3"  Command="{Binding Save}" Content="确认" Width="80"/>
+            <Button  Margin="3" Command="{Binding CloseWindow}"  Content="取消" Width="80"/>
+        </StackPanel>
+    </Grid>
+</Window>

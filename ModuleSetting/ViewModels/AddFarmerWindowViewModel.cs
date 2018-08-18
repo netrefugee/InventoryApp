@@ -33,6 +33,7 @@ namespace ModuleSetting.ViewModels
         void ExecuteSave()
         {
             if (Utils.Utils.IsNullOrEmpty(Farmer.姓名)) { DXMessageBox.Show("姓名! 未填写"); return; }
+            Farmer.姓名 = Farmer.姓名.Trim();
 
             DbDataService dbDataService = new DbDataService();
             // 如果是0,就是添加

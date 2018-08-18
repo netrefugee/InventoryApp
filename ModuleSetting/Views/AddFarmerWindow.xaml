@@ -1,11 +1,11 @@
-﻿<Window
+﻿<Window      x:Class="ModuleSetting.Views.AddFarmerWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" x:Class="ModuleSetting.Views.AddFarmerWindow"
+    mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="False" Height="235" Width="1000"  
     WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window"
     MouseLeftButtonDown="MoveWindow_MouseLeftButtonDown">
