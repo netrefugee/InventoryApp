@@ -11,6 +11,7 @@
              xmlns:converter="clr-namespace:ModuleSetting.Utils"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" mc:Ignorable="d"
              prism:ViewModelLocator.AutoWireViewModel="True">
+    <!--资源-->
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,69 +19,31 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+
     <DockPanel >
+        <!--添加和刷新-->
         <StackPanel Orientation="Horizontal"  DockPanel.Dock="Top" >
-            <Button x:Name="addFarmerButton" Content="添加农户" Command="{Binding ShowAddFarmerPanel}" Margin="3"/>
-            <Button   Command="{Binding UpdateFarmers}" Content="刷新" Margin="3"/>
+            <Button   Command="{Binding ShowAddFarmerWindow}" Content="添加农户" Margin="3"/>
+            <Button   Command="{Binding RefreshFarmers}" Content="刷新" Margin="3"/>
         </StackPanel>
-
-        <materialDesign:Card  Margin="3" DockPanel.Dock="Top" materialDesign:ShadowAssist.ShadowDepth="Depth1">
-            <StackPanel  Visibility="{Binding IsShowAddFarmerPanel}"  Orientation="Vertical">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
-                    <WrapPanel  Grid.Row="0" Grid.Column="1">
-                        <TextBox   materialDesign:HintAssist.Hint="姓名"   Text="{Binding Farmer.姓名}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="电话" Width="150" Text="{Binding Farmer.电话}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="身份证号" Width="200" Text="{Binding Farmer.身份证号}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="省"  Text="{Binding Farmer.省}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="市"  Text="{Binding Farmer.市}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="县"  Text="{Binding Farmer.县}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="乡镇" Width="150"  Text="{Binding Farmer.乡镇}"/>
-                        <TextBox   materialDesign:HintAssist.Hint="村" Width="150" Text="{Binding Farmer.村}"/>
-                    </WrapPanel>
-                </Grid>
-                <StackPanel Orientation="Horizontal" >
-                    <Button Margin="3"  Command="{Binding SaveAddFarmer}" Content="保存" Width="80"/>
-                    <Button  Margin="3" Command="{Binding HideAddFarmerPanel}" Content="取消" Width="80"/>
-                    <TextBlock Foreground="Red" Text="{Binding CurrentState.Info}"></TextBlock>
-                </StackPanel>
-            </StackPanel>
-        </materialDesign:Card>
-        <!--<Button Content="test" Click="Button_Click"></Button>-->
-        <dxg:GridControl  ItemsSource="{Binding Farmers}" x:Name="FarmersGridControl"  AutoGenerateColumns="AddNew" >
+        <!--表格-->
+        <dxg:GridControl  ItemsSource="{Binding Farmers}" AutoGenerateColumns="AddNew" >
             <dxg:GridControl.Columns>
-
                 <dxg:GridColumn  FieldName="编辑" Width="50" >
                     <dxg:GridColumn.CellTemplate>
                         <DataTemplate>
                             <Button Width="50" Height="20" Style="{StaticResource MaterialDesignRaisedLightButton}"  
                                   Command="{Binding DataContext.EditFarmer, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
-                                    CommandParameter="{Binding  ElementName=FarmersGridControl,Path=SelectedItem}">
+                                    CommandParameter="{Binding   RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl},Path=SelectedItem}">
                                 <materialDesign:PackIcon Kind="TableEdit" />
                             </Button>
                         </DataTemplate>
                     </dxg:GridColumn.CellTemplate>
-
                 </dxg:GridColumn>
-
-
             </dxg:GridControl.Columns>
             <dxg:GridControl.View >
                 <dxg:TableView  AllowEditing="False"  ShowGroupPanel="False"/>
             </dxg:GridControl.View>
-
         </dxg:GridControl>
- 
-
     </DockPanel>
 </UserControl>

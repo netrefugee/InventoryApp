@@ -1,0 +1,47 @@
+﻿<Window
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" x:Class="ModuleSetting.Views.AddFarmerWindow"
+        prism:ViewModelLocator.AutoWireViewModel="False" Height="235" Width="1000"  
+    WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window"
+    MouseLeftButtonDown="MoveWindow_MouseLeftButtonDown">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ModuleSetting;component/Styles/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
+        <WrapPanel  Grid.Row="0" Grid.Column="1">
+            <TextBox   materialDesign:HintAssist.Hint="姓名"   Text="{Binding Farmer.姓名}"/>
+            <TextBox   materialDesign:HintAssist.Hint="电话" Width="130" Text="{Binding Farmer.电话}"/>
+            <TextBox   materialDesign:HintAssist.Hint="身份证号" Width="200" Text="{Binding Farmer.身份证号}"/>
+            <TextBox   materialDesign:HintAssist.Hint="省"  Text="{Binding Farmer.省}"/>
+            <TextBox   materialDesign:HintAssist.Hint="市"  Text="{Binding Farmer.市}"/>
+            <TextBox   materialDesign:HintAssist.Hint="县"  Text="{Binding Farmer.县}"/>
+            <TextBox   materialDesign:HintAssist.Hint="乡镇"   Text="{Binding Farmer.乡镇}"/>
+            <TextBox   materialDesign:HintAssist.Hint="村"  Text="{Binding Farmer.村}"/>
+        </WrapPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  >
+            <Button Margin="3"  Command="{Binding Save}" Content="确认" Width="80"/>
+            <Button  Margin="3" Command="{Binding CloseWindow}"  Content="取消" Width="80"/>
+        </StackPanel>
+    </Grid>
+</Window>
