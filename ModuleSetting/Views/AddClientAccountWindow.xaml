@@ -1,0 +1,47 @@
+﻿<Window x:Class="ModuleSetting.Views.AddClientAccountWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"             
+        prism:ViewModelLocator.AutoWireViewModel="False" Height="235" Width="600"  
+    WindowStartupLocation="CenterScreen" WindowStyle="None" x:Name="window"
+    MouseLeftButtonDown="MoveWindow_MouseLeftButtonDown">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ModuleSetting;component/Styles/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
+            <WrapPanel  Grid.Row="0" Grid.Column="1">
+                <TextBox   materialDesign:HintAssist.Hint="客户姓名"  Text="{Binding ClientAccount.姓名}" IsEnabled="False"/>
+                <ComboBox   materialDesign:HintAssist.Hint="收入或支出"   Text="{Binding ClientAccount.收入或支出}">
+                    <ComboBoxItem>收入</ComboBoxItem>
+                    <ComboBoxItem>支出</ComboBoxItem>
+                </ComboBox>
+                <!--<TextBox   materialDesign:HintAssist.Hint="客户ID"  Text="{Binding ClientAccount.客户ID}" IsEnabled="False"/>-->
+                <TextBox   materialDesign:HintAssist.Hint="金额(元)"  Text="{Binding ClientAccount.金额}"/>
+                <!--<TextBox   materialDesign:HintAssist.Hint="时间"  Text="{Binding ClientAccount.时间}"/>-->
+                <DatePicker   VerticalAlignment="Center" Margin="0,20,0,0" FontSize="16" Text="{Binding ClientAccount.日期,Mode=TwoWay}" materialDesign:HintAssist.Hint="日期"  />
+            </WrapPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  >
+                <Button Margin="3"  Command="{Binding Save}" Content="确认" Width="80"/>
+                <Button  Margin="3" Command="{Binding CloseWindow}"  Content="取消" Width="80"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

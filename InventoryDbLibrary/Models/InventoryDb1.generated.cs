@@ -220,11 +220,12 @@ namespace Models
 	[Table("supplierAccount")]
 	public partial class SupplierAccount
 	{
+		[Column,     NotNull ] public string 供应商名称   { get; set; } // text(max)
+		[Column,     NotNull ] public string 收入或支出   { get; set; } // text(max)
+		[Column,     NotNull ] public double 金额      { get; set; } // real
+		[Column,     NotNull ] public string 日期      { get; set; } // text(max)
 		[PrimaryKey, Identity] public long   供应商账户ID { get; set; } // integer
 		[Column,     NotNull ] public long   供应商ID   { get; set; } // integer
-		[Column,     NotNull ] public string 时间      { get; set; } // text(max)
-		[Column,     NotNull ] public double 金额      { get; set; } // real
-		[Column,     NotNull ] public string 供应商名称   { get; set; } // text(max)
 
 		#region Associations
 

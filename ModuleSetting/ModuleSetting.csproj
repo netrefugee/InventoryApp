@@ -101,6 +101,8 @@
     <Compile Include="Utils\DbDataUtil.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\XmlDataUtil.cs" />
+    <Compile Include="ViewModels\AddClientAccountWindowViewModel.cs" />
+    <Compile Include="ViewModels\AddClientWindowViewModel.cs" />
     <Compile Include="ViewModels\AddFarmerWindowViewModel.cs" />
     <Compile Include="ViewModels\AddGoodWindowViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
@@ -109,6 +111,12 @@
     <Compile Include="ViewModels\LoggerViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModel.cs" />
     <Compile Include="ViewModels\WholesaleViewModel.cs" />
+    <Compile Include="Views\AddClientAccountWindow.xaml.cs">
+      <DependentUpon>AddClientAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddClientWindow.xaml.cs">
+      <DependentUpon>AddClientWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddFarmerWindow.xaml.cs">
       <DependentUpon>AddFarmerWindow.xaml</DependentUpon>
     </Compile>
@@ -140,6 +148,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddClientAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

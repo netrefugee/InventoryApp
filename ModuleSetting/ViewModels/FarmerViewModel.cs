@@ -26,7 +26,7 @@ namespace ModuleSetting.ViewModels
 
         void ExecuteShowAddFarmerWindow()
         {
-            AddFarmerWindow addFarmerWindow = new AddFarmerWindow(new Farmer() { 省 = "吉林省", 市 = "辽源市", 县 = "东丰县" });
+            AddFarmerWindow addFarmerWindow = new AddFarmerWindow(new Farmer() {  });
             if (addFarmerWindow.ShowDialog()==true)
             {
                 ExecuteRefreshFarmers();

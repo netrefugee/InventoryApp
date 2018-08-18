@@ -97,30 +97,30 @@ namespace ModuleSetting.ViewModels
         {
 
             // 判断未填写
-            if (Utils.Utils.IsNullOrEmpty(good.商品名称)) { DXMessageBox.Show("商品名称! 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.种类小)) { DXMessageBox.Show(" 商品种类(小)! 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.种类大)) { DXMessageBox.Show(" 商品种类(大)! 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.是否高毒)) { DXMessageBox.Show("是否高毒! 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.单位大)) { DXMessageBox.Show("单位(大) 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.单位小)) { DXMessageBox.Show("单位(小) 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.内含量) || good.内含量 == 0) { DXMessageBox.Show($"商品每{good.单位大}数量 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.商品追溯码前11位)) { DXMessageBox.Show("商品追溯码 未填写"); return; }
-            if (Utils.Utils.IsNullOrEmpty(good.生产厂家)) { DXMessageBox.Show("生产厂家 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.商品名称)) { DXMessageBox.Show("商品名称! 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.种类小)) { DXMessageBox.Show(" 商品种类(小)! 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.种类大)) { DXMessageBox.Show(" 商品种类(大)! 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.是否高毒)) { DXMessageBox.Show("是否高毒! 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.单位大)) { DXMessageBox.Show("单位(大) 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.单位小)) { DXMessageBox.Show("单位(小) 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.内含量) || Good.内含量 == 0) { DXMessageBox.Show($"商品每{Good.单位大}数量 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.商品追溯码前11位)) { DXMessageBox.Show("商品追溯码 未填写"); return; }
+            if (Utils.Utils.IsNullOrEmpty(Good.生产厂家)) { DXMessageBox.Show("生产厂家 未填写"); return; }
 
             // 判断两边是否有空格
-            good.商品名称 = good.商品名称.Trim();
-            good.种类小 = good.种类小.Trim();
-            good.种类大 = good.种类大.Trim();
-            good.是否高毒 = good.是否高毒.Trim();
-            good.单位大 = good.单位大.Trim();
-            good.单位小 = good.单位小.Trim();
-            good.商品追溯码前11位 = good.商品追溯码前11位.Trim();
-            good.生产厂家 = good.生产厂家.Trim();
+            Good.商品名称 = Good.商品名称.Trim();
+            Good.种类小 = Good.种类小.Trim();
+            Good.种类大 = Good.种类大.Trim();
+            Good.是否高毒 = Good.是否高毒.Trim();
+            Good.单位大 = Good.单位大.Trim();
+            Good.单位小 = Good.单位小.Trim();
+            Good.商品追溯码前11位 = Good.商品追溯码前11位.Trim();
+            Good.生产厂家 = Good.生产厂家.Trim();
 
             DbDataService dbDataService = new DbDataService();
             if (Good.商品ID == 0)
             {
-                if (dbDataService.isExistGood(good))
+                if (dbDataService.isExistGood(Good))
                 {
                     DXMessageBox.Show($"添加失败,已存在追溯码为:{Good.商品追溯码前11位}的商品");
                     Window.DialogResult = false;
@@ -128,13 +128,13 @@ namespace ModuleSetting.ViewModels
                 }
                 else
                 {
-                    dbDataService.InsertGood(good);
+                    dbDataService.InsertGood(Good);
                     Window.DialogResult = true;
                 }
             }
             else
             {
-                dbDataService.UpdateGood(good);
+                dbDataService.UpdateGood(Good);
                 Window.DialogResult = true;
             }
 

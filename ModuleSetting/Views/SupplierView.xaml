@@ -1,15 +1,12 @@
 ﻿<UserControl x:Class="ModuleSetting.Views.SupplierView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
-             xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
-             xmlns:converter="clr-namespace:ModuleSetting.Utils"
-             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" mc:Ignorable="d"
+             mc:Ignorable="d"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -63,7 +60,7 @@
             </StackPanel>
         </materialDesign:Card>
         <!--<Button Content="test" Click="Button_Click"></Button>-->
-        <dxg:GridControl  ItemsSource="{Binding Suppliers}" x:Name="SuppliersGridControl"  AutoGenerateColumns="AddNew" >
+        <dxg:GridControl  ItemsSource="{Binding Suppliers}"   AutoGenerateColumns="AddNew" >
             <dxg:GridControl.Columns>
 
                 <dxg:GridColumn  FieldName="编辑" Width="50" >
@@ -71,7 +68,7 @@
                         <DataTemplate>
                             <Button Width="50" Height="20" Style="{StaticResource MaterialDesignRaisedLightButton}"  
                                   Command="{Binding DataContext.EditSupplier, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
-                                    CommandParameter="{Binding  ElementName=SuppliersGridControl,Path=SelectedItem}">
+                                    CommandParameter="{Binding  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl},Path=SelectedItem}">
                                 <materialDesign:PackIcon Kind="TableEdit" />
                             </Button>
                         </DataTemplate>
