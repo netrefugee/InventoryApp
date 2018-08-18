@@ -145,8 +145,6 @@ namespace ModuleSetting.ViewModels
             }
             // 更新数据
             ExecuteUpdateSuppliers();
-            // 重置数据
-            Supplier = supplierInit();
             // 关闭面板
             ExecuteHideAddSupplierPanel();
         }

@@ -150,8 +150,6 @@ namespace ModuleSetting.ViewModels
             }
             // 更新数据
             ExecuteUpdateFarmers();
-            // 重置数据
-            Farmer = farmerInit();
             // 关闭面板
             ExecuteHideAddFarmerPanel();
         }

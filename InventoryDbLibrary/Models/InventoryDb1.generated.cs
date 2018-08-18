@@ -83,9 +83,10 @@ namespace Models
 	[Table("clientAccount")]
 	public partial class ClientAccount
 	{
-		[Column,     NotNull ] public double 金额     { get; set; } // real
-		[Column,     NotNull ] public string 时间     { get; set; } // text(max)
+		[Column,     NotNull ] public string 姓名     { get; set; } // text(max)
 		[Column,     NotNull ] public string 收入或支出  { get; set; } // text(max)
+		[Column,     NotNull ] public double 金额     { get; set; } // real
+		[Column,     NotNull ] public string 日期     { get; set; } // text(max)
 		[PrimaryKey, Identity] public long   客户账户ID { get; set; } // integer
 		[Column,     NotNull ] public long   客户ID   { get; set; } // integer
 
@@ -204,15 +205,36 @@ namespace Models
 		[Column,        Nullable] public string 开户银行    { get; set; } // text(max)
 		[Column,        Nullable] public string 银行账号    { get; set; } // text(max)
 		[Column,        Nullable] public string 备注      { get; set; } // text(max)
+
+		#region Associations
+
+		/// <summary>
+		/// FK_supplierAccount_0_0_BackReference
+		/// </summary>
+		[Association(ThisKey="供应商ID", OtherKey="供应商ID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<SupplierAccount> SupplierAccounts { get; set; }
+
+		#endregion
 	}
 
 	[Table("supplierAccount")]
 	public partial class SupplierAccount
 	{
-		[Column("supplierAccountID"), PrimaryKey,  Identity] public long    SupplierAccountID      { get; set; } // integer
-		[Column("supplierID"),        NotNull              ] public long    SupplierID             { get; set; } // integer
-		[Column("datetime"),             Nullable          ] public string  Datetime               { get; set; } // text(max)
-		[Column("supplierAccount"),      Nullable          ] public double? SupplierAccount_Column { get; set; } // real
+		[PrimaryKey, Identity] public long   供应商账户ID { get; set; } // integer
+		[Column,     NotNull ] public long   供应商ID   { get; set; } // integer
+		[Column,     NotNull ] public string 时间      { get; set; } // text(max)
+		[Column,     NotNull ] public double 金额      { get; set; } // real
+		[Column,     NotNull ] public string 供应商名称   { get; set; } // text(max)
+
+		#region Associations
+
+		/// <summary>
+		/// FK_supplierAccount_0_0
+		/// </summary>
+		[Association(ThisKey="供应商ID", OtherKey="供应商ID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_supplierAccount_0_0", BackReferenceName="SupplierAccounts")]
+		public Supplier 供应商 { get; set; }
+
+		#endregion
 	}
 
 	[Table("wholesale")]
@@ -298,10 +320,10 @@ namespace Models
 				t.供应商ID == 供应商ID);
 		}
 
-		public static SupplierAccount Find(this ITable<SupplierAccount> table, long SupplierAccountID)
+		public static SupplierAccount Find(this ITable<SupplierAccount> table, long 供应商账户ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.SupplierAccountID == SupplierAccountID);
+				t.供应商账户ID == 供应商账户ID);
 		}
 
 		public static Wholesale Find(this ITable<Wholesale> table, long WholesaleID)

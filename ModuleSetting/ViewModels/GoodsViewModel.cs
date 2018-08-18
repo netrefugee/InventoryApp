@@ -230,8 +230,6 @@ namespace ModuleSetting.ViewModels
             }
             // 更新数据
             ExecuteUpdateGoods();
-            // 重置数据
-            Good = goodInit();
             // 关闭面板
             ExecuteHideAddGoodPanel();
         }

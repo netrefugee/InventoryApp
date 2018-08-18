@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ModuleSetting.Views.ClientView"
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  x:Class="ModuleSetting.Views.ClientView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
@@ -22,7 +22,6 @@
         <StackPanel Orientation="Horizontal"  DockPanel.Dock="Top" >
             <Button x:Name="addClientButton" Content="添加客户" Command="{Binding ShowAddClientPanel}" Margin="3"/>
             <Button   Command="{Binding UpdateClients}" Content="刷新" Margin="3"/>
-            <Button x:Name="addClientAccountButton"  Content="添加往来" Command="{Binding ShowAddClientAccountPanel}" Margin="20,3"/>
         </StackPanel>
 
         <materialDesign:Card  Margin="3" DockPanel.Dock="Top" materialDesign:ShadowAssist.ShadowDepth="Depth1">
@@ -70,13 +69,15 @@
 
                         <TextBlock Text="基本设置:" Grid.Row="0" Grid.Column="0"/>
                         <WrapPanel  Grid.Row="0" Grid.Column="1">
+                            <TextBox   materialDesign:HintAssist.Hint="姓名"  Text="{Binding ClientAccount.姓名}" IsEnabled="False"/>
                             <ComboBox   materialDesign:HintAssist.Hint="收入或支出"   Text="{Binding ClientAccount.收入或支出}">
                                 <ComboBoxItem>收入</ComboBoxItem>
                                 <ComboBoxItem>支出</ComboBoxItem>
                             </ComboBox>
+                            <!--<TextBox   materialDesign:HintAssist.Hint="客户ID"  Text="{Binding ClientAccount.客户ID}" IsEnabled="False"/>-->
                             <TextBox   materialDesign:HintAssist.Hint="金额(元)"  Text="{Binding ClientAccount.金额}"/>
                             <!--<TextBox   materialDesign:HintAssist.Hint="时间"  Text="{Binding ClientAccount.时间}"/>-->
-                            <DatePicker   VerticalAlignment="Center" Margin="0,20,0,0" FontSize="16" Text="{Binding ClientAccount.时间,Mode=TwoWay}" materialDesign:HintAssist.Hint="Locale Date" />
+                            <DatePicker   VerticalAlignment="Center" Margin="0,20,0,0" FontSize="16" Text="{Binding ClientAccount.日期,Mode=TwoWay}" materialDesign:HintAssist.Hint="日期"  />
                         </WrapPanel>
                     </Grid>
                     <StackPanel Orientation="Horizontal" >
@@ -128,31 +129,33 @@
                         </dxg:GridColumn.CellTemplate>
                     </dxg:GridColumn>
                 </dxg:GridControl.Columns>
-
-
-
             </dxg:GridControl>
+
             <GridSplitter  Grid.Column="1"  />
-            <dxg:GridControl  ItemsSource="{Binding ClientAccounts}" Grid.Column="2"   AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged" SelectionMode="Cell">
-                <dxg:GridControl.View >
-                    <dxg:TableView  AllowEditing="False" BestFitMode="VisibleRows" AllowBestFit="True"  ShowGroupPanel="False"/>
-                </dxg:GridControl.View>
-                <dxg:GridControl.Columns>
-                    <dxg:GridColumn  FieldName="编辑" Width="60" >
-                        <dxg:GridColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button    Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
+            <DockPanel Grid.Column="2"  LastChildFill="True" >
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <Button x:Name="addClientAccountButton"  HorizontalAlignment="Left"   Content="添加" Width="80"   Command="{Binding ShowAddClientAccountPanel}" />
+                </StackPanel>
+                <dxg:GridControl  ItemsSource="{Binding ClientAccounts}" Grid.Column="2"   AutoGenerateColumns="AddNew" ItemsSourceChanged="GridControl_ItemsSourceChanged" SelectionMode="Cell">
+                    <dxg:GridControl.View >
+                        <dxg:TableView  AllowEditing="False" BestFitMode="VisibleRows" AllowBestFit="True"  ShowGroupPanel="False"/>
+                    </dxg:GridControl.View>
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn  FieldName="编辑" Width="60" >
+                            <dxg:GridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button    Height="25" Style="{StaticResource MaterialDesignRaisedLightButton}"  
                                   Command="{Binding DataContext.EditClientsAccount, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
                                   CommandParameter="{Binding Path=SelectedItem,  RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=dxg:GridControl}}">
-                                    <materialDesign:PackIcon Kind="TableEdit" />
-                                </Button>
-                            </DataTemplate>
-                        </dxg:GridColumn.CellTemplate>
-                    </dxg:GridColumn>
-                </dxg:GridControl.Columns>
+                                        <materialDesign:PackIcon Kind="TableEdit" />
+                                    </Button>
+                                </DataTemplate>
+                            </dxg:GridColumn.CellTemplate>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
 
-            </dxg:GridControl>
-
+                </dxg:GridControl>
+            </DockPanel>
         </Grid>
     </DockPanel>
 </UserControl>
