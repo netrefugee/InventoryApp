@@ -33,5 +33,6 @@ namespace ModuleSetting
             _container.RegisterTypeForNavigation<WholesaleView>();
 
         }
+   
     }
 }

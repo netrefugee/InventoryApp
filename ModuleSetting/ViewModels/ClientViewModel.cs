@@ -16,8 +16,9 @@ namespace ModuleSetting.ViewModels
     {
         public ClientViewModel()
         {
+        
         }
-
+         
         /// ****************************************************
         ///                        客户
         /// ****************************************************
@@ -51,6 +52,7 @@ namespace ModuleSetting.ViewModels
             if (addClientWindow.ShowDialog() == true)
             {
                 ExecuteUpdateClients();
+                //UpdateClients.Execute();
             }
         }
         #endregion
@@ -58,7 +60,7 @@ namespace ModuleSetting.ViewModels
         #region [ 刷新 ]
         // 刷新
         private DelegateCommand updateClients;
-        public DelegateCommand UpdateClients =>
+        public  DelegateCommand UpdateClients =>
             updateClients ?? (updateClients = new DelegateCommand(ExecuteUpdateClients));
 
         void ExecuteUpdateClients()
