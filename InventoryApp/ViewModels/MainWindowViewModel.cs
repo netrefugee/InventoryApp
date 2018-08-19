@@ -24,9 +24,9 @@ namespace InventoryApp.ViewModels
 
             NavigateCommand = new DelegateCommand<string>(Navigate);
             TestCommand = new DelegateCommand<string>(Test);
-     
+
         }
- 
+
         // 标题
         private string _title = "Prism Unity Application";
         public string Title
@@ -34,15 +34,9 @@ namespace InventoryApp.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        //// 是否显示等待
-        //private bool isSplashScreenShown;
-        //public bool IsSplashScreenShown
-        //{
-        //    get { return isSplashScreenShown; }
-        //    set { SetProperty(ref isSplashScreenShown, value); }
-        //}
 
-             
+
+
         // 导航命令
         public DelegateCommand<string> NavigateCommand { get; private set; }
         private void Navigate(string navigatePath)
@@ -56,6 +50,25 @@ namespace InventoryApp.ViewModels
         // 导航完成
         private void NavigationComplete(NavigationResult result)
         {
+            switch (result.Context.Uri.ToString())
+            {
+                case "ClientView":
+                    ((ModuleSetting.ViewModels.ClientViewModel)(((ModuleSetting.Views.ClientView)result.Context
+                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).UpdateClients.Execute();
+                    break;
+                case "FarmerView":
+                    ((ModuleSetting.ViewModels.FarmerViewModel)(((ModuleSetting.Views.FarmerView)result.Context
+                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).RefreshFarmers.Execute();
+                    break;
+                case "GoodsView":
+                    ((ModuleSetting.ViewModels.GoodsViewModel)(((ModuleSetting.Views.GoodsView)result.Context
+                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).UpdateGoods.Execute();
+                    break;
+                case "SupplierView":
+                    ((ModuleSetting.ViewModels.SupplierViewModel)(((ModuleSetting.Views.SupplierView)result.Context
+                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).UpdateSuppliers.Execute();
+                    break;
+            }
             DXSplashScreen.Close();
         }
 

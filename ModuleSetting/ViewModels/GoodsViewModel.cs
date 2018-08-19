@@ -26,7 +26,7 @@ namespace ModuleSetting.ViewModels
         public GoodsViewModel()
         {
 
-
+          
         }
 
 

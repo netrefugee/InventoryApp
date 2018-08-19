@@ -30,7 +30,7 @@ namespace ModuleSetting
             _container.RegisterTypeForNavigation<ClientView>();
             _container.RegisterTypeForNavigation<LoggerView>();
             _container.RegisterTypeForNavigation<SupplierView>();
-            _container.RegisterTypeForNavigation<WholesaleView>();
+
 
         }
    

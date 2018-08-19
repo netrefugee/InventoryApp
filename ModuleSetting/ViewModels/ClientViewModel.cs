@@ -4,6 +4,7 @@ using ModuleSetting.Models;
 using ModuleSetting.Services;
 using ModuleSetting.Views;
 using Prism.Commands;
+using Prism.Logging;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;

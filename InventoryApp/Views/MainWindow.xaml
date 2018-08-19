@@ -22,8 +22,6 @@
     <Grid >
         <Grid.Resources>
             <sys:Double x:Key="NavigateButtonHeight">50</sys:Double>
-            <sys:Double x:Key="CloseMaxMinIconHeightWidth">20</sys:Double>
-            <sys:Double x:Key="CloseMaxMinButtonHeightWidth">30</sys:Double>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>
@@ -32,7 +30,7 @@
         <!--左边宽度-->
         <StackPanel Grid.Column="0"  Orientation="Vertical"  VerticalAlignment="Bottom">
  
-                <Button Command="{Binding TestCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="Test"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
+            <Button Command="{Binding TestCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="Test"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="FarmerView"    Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}" Height="{StaticResource ResourceKey=NavigateButtonHeight }"  CommandParameter="GoodsView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
             <Button Command="{Binding NavigateCommand}"  Height="{StaticResource ResourceKey=NavigateButtonHeight }" CommandParameter="ClientView"  Content="{Binding RelativeSource={RelativeSource Mode=Self},Path=CommandParameter}"></Button>
@@ -58,22 +56,23 @@
                         <DropShadowEffect Color="#FFCFCFCF"/>
                     </Label.Effect>
                 </Label>
-                <StackPanel VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                <StackPanel VerticalAlignment="Top" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+        
                     <!--最小按钮-->
-                    <Button Click="btnMinimize_Click"  Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
-                        <materialDesign:PackIcon  Kind="WindowMinimize"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    <Button Click="btnMinimize_Click"  Style="{StaticResource   MaterialDesignRaisedButton}" >
+                        <materialDesign:PackIcon  Kind="WindowMinimize"       />
                     </Button>
                     <!--普通按钮-->
-                    <Button x:Name="btnNormal" Click="btnNormal_Click" Visibility="Collapsed" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
-                        <materialDesign:PackIcon  Kind="WindowMaximize"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    <Button x:Name="btnNormal" Click="btnNormal_Click" Visibility="Collapsed" Style="{StaticResource   MaterialDesignRaisedButton}" >
+                        <materialDesign:PackIcon  Kind="WindowMaximize"    />
                     </Button>
                     <!--最大化按钮-->
-                    <Button x:Name="btnMaximize" Click="btnMaximize_Click" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
-                        <materialDesign:PackIcon  Kind="WindowMaximize"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    <Button x:Name="btnMaximize" Click="btnMaximize_Click" Style="{StaticResource   MaterialDesignRaisedButton}" >
+                        <materialDesign:PackIcon  Kind="WindowMaximize"    />
                     </Button>
                     <!--关闭按钮-->
-                    <Button   Click="Button_MouseLeftButtonDown_Close" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Height="{StaticResource CloseMaxMinButtonHeightWidth}" Width="{StaticResource CloseMaxMinButtonHeightWidth}">
-                        <materialDesign:PackIcon  Kind="WindowClose"  Height="{StaticResource CloseMaxMinIconHeightWidth}"  Width="{StaticResource CloseMaxMinIconHeightWidth}"  />
+                    <Button   Click="Button_MouseLeftButtonDown_Close" Style="{StaticResource   MaterialDesignRaisedButton}" >
+                        <materialDesign:PackIcon  Kind="WindowClose"    />
                     </Button>
                 </StackPanel>
             </Grid>

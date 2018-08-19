@@ -112,7 +112,6 @@
     <Compile Include="ViewModels\GoodsViewModel.cs" />
     <Compile Include="ViewModels\LoggerViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModel.cs" />
-    <Compile Include="ViewModels\WholesaleViewModel.cs" />
     <Compile Include="Views\AddClientAccountWindow.xaml.cs">
       <DependentUpon>AddClientAccountWindow.xaml</DependentUpon>
     </Compile>
@@ -145,9 +144,6 @@
     </Compile>
     <Compile Include="Views\SupplierView.xaml.cs">
       <DependentUpon>SupplierView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WholesaleView.xaml.cs">
-      <DependentUpon>WholesaleView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -200,10 +196,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SupplierView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WholesaleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
