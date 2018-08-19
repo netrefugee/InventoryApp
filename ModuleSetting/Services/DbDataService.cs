@@ -73,6 +73,23 @@ namespace ModuleSetting.Services
             }
             return false;
         }
+        // 更新供应商
+        internal void UpdateSupplierAccount(SupplierAccount supplierAccount)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Update(supplierAccount);
+            }
+        }
+        // 添加供应商
+        internal void InsertSupplierAccount(SupplierAccount supplierAccount)
+        {
+            using (var db = new InventoryDB())
+            {
+                db.Insert(supplierAccount);
+            }
+        }
+
         // 添加农户
         internal void InsertFarmer(Farmer farmer)
         {

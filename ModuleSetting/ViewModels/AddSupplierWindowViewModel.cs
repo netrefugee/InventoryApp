@@ -1,5 +1,4 @@
-﻿using DevExpress.Xpf.Core;
-using Models;
+﻿using Models;
 using ModuleSetting.Services;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -10,17 +9,17 @@ using System.Windows;
 
 namespace ModuleSetting.ViewModels
 {
-    public class AddClientWindowViewModel : BindableBase
+    public class AddSupplierWindowViewModel : BindableBase
     {
-        public AddClientWindowViewModel()
+        public AddSupplierWindowViewModel()
         {
 
         }
-        private Client client;
-        public Client Client
+        private Supplier supplier;
+        public Supplier Supplier
         {
-            get { return client; }
-            set { SetProperty(ref client, value); }
+            get { return supplier; }
+            set { SetProperty(ref supplier, value); }
         }
         public Window Window { get; set; }
 
@@ -30,28 +29,28 @@ namespace ModuleSetting.ViewModels
 
         void ExecuteSave()
         {
-            if (Utils.Utils.IsNullOrEmpty((string)Client.姓名)) { DXMessageBox.Show("姓名! 未填写"); return; }
-            Client.姓名 = Client.姓名.Trim();
+            if (Utils.Utils.IsNullOrEmpty((string)Supplier.供应商名称)) { DevExpress.Xpf.Core.DXMessageBox.Show("供应商名称! 未填写"); return; }
+            Supplier.供应商名称 = Supplier.供应商名称.Trim();
 
             DbDataService dbDataService = new DbDataService();
             // 如果是0,就是添加
-            if (Client.客户ID == 0)
+            if (Supplier.供应商ID == 0)
             {
-                if (dbDataService.isExistClient(Client))
+                if (dbDataService.isExistSupplier(Supplier))
                 {
-                    DXMessageBox.Show($"添加失败,已存在姓名为:{Client.姓名}的客户");
+                    DevExpress.Xpf.Core.DXMessageBox.Show($"添加失败,已存在姓名为:{Supplier.供应商名称}的供应商");
                     Window.DialogResult = false;
                     return;
                 }
                 else
                 {
-                    dbDataService.InsertClient(Client);
+                    dbDataService.InsertSupplier(Supplier);
                     Window.DialogResult = true;
                 }
             }// 更新
             else
             {
-                dbDataService.UpdateClient(Client);
+                dbDataService.UpdateSupplier(Supplier);
                 Window.DialogResult = true;
             }
         }
@@ -67,7 +66,6 @@ namespace ModuleSetting.ViewModels
             Window.DialogResult = false;
         }
         #endregion
-
 
     }
 }

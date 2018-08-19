@@ -128,9 +128,10 @@ namespace ModuleSetting.ViewModels
         #endregion
 
         #region [ 显示添加客户账户面板 ]
+
         private DelegateCommand _showAddClientAccountWindow;
         public DelegateCommand ShowAddClientAccountWindow =>
-            _showAddClientAccountWindow ?? (_showAddClientAccountWindow = new DelegateCommand(ExecuteShowAddClientAccountWindow));
+            _showAddClientAccountWindow ?? (_showAddClientAccountWindow = new DelegateCommand(ExecuteShowAddClientAccountWindow, CanExecuteShowAddClientAccountWindow));
 
         void ExecuteShowAddClientAccountWindow()
         {
@@ -139,6 +140,15 @@ namespace ModuleSetting.ViewModels
             {
                 ExecuteUpdateClientAccounts(CurrentClient);
             }
+        }
+
+        bool CanExecuteShowAddClientAccountWindow()
+        {
+            if (ClientAccounts != null)
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 

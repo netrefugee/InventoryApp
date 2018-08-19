@@ -105,6 +105,8 @@
     <Compile Include="ViewModels\AddClientWindowViewModel.cs" />
     <Compile Include="ViewModels\AddFarmerWindowViewModel.cs" />
     <Compile Include="ViewModels\AddGoodWindowViewModel.cs" />
+    <Compile Include="ViewModels\AddSupplierAccountWindowViewModel.cs" />
+    <Compile Include="ViewModels\AddSupplierWindowViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\FarmerViewModel.cs" />
     <Compile Include="ViewModels\GoodsViewModel.cs" />
@@ -122,6 +124,12 @@
     </Compile>
     <Compile Include="Views\AddGoodWindow.xaml.cs">
       <DependentUpon>AddGoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddSupplierAccountWindow.xaml.cs">
+      <DependentUpon>AddSupplierAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddSupplierWindow.xaml.cs">
+      <DependentUpon>AddSupplierWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
@@ -164,6 +172,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddGoodWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddSupplierAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddSupplierWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -85,9 +85,5 @@ namespace ModuleSetting.ViewModels
         }
         #endregion
 
-
-
-
-
     }
 }
