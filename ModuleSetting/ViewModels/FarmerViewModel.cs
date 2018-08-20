@@ -5,6 +5,7 @@ using ModuleSetting.Services;
 using ModuleSetting.Views;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Windows;
 
 namespace ModuleSetting.ViewModels
 {
-    public class FarmerViewModel : BindableBase
+    public class FarmerViewModel : BindableBase, INavigationAware
     {
         public FarmerViewModel()
         {
@@ -26,7 +27,7 @@ namespace ModuleSetting.ViewModels
 
         void ExecuteShowAddFarmerWindow()
         {
-            AddFarmerWindow addFarmerWindow = new AddFarmerWindow(new Farmer() {  });
+            AddFarmerWindow addFarmerWindow = new AddFarmerWindow(new Farmer() {  省="吉林省", 市="辽源市", 县="东丰县"});
             if (addFarmerWindow.ShowDialog()==true)
             {
                 ExecuteRefreshFarmers();
@@ -73,7 +74,27 @@ namespace ModuleSetting.ViewModels
         }
         #endregion
 
- 
+        /// ****************************************************
+        ///                        导航
+        /// ****************************************************
+
+        #region 导航
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            RefreshFarmers.Execute();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+
+        }
+        #endregion
 
     }
 }

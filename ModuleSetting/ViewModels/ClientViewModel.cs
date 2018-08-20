@@ -6,6 +6,7 @@ using ModuleSetting.Views;
 using Prism.Commands;
 using Prism.Logging;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Windows;
 
 namespace ModuleSetting.ViewModels
 {
-    public class ClientViewModel : BindableBase
+    public class ClientViewModel : BindableBase, INavigationAware
     {
         public ClientViewModel()
         {
@@ -172,6 +173,30 @@ namespace ModuleSetting.ViewModels
             {
                 ExecuteUpdateClientAccounts(CurrentClient);
             }
+        }
+
+        #endregion
+
+
+        /// ****************************************************
+        ///                        导航
+        /// ****************************************************
+
+        #region 导航
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            UpdateClients.Execute();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            
         }
         #endregion
 

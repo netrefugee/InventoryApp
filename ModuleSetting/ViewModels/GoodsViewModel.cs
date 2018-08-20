@@ -18,10 +18,11 @@ using System.Windows;
 using System.Windows.Input;
 using Xml.Services;
 using ModuleSetting.Utils;
+using Prism.Regions;
 
 namespace ModuleSetting.ViewModels
 {
-    public class GoodsViewModel : BindableBase
+    public class GoodsViewModel : BindableBase, INavigationAware
     {
         public GoodsViewModel()
         {
@@ -82,6 +83,28 @@ namespace ModuleSetting.ViewModels
             {
                 ExecuteUpdateGoods();
             }
+        }
+        #endregion
+
+        /// ****************************************************
+        ///                        导航
+        /// ****************************************************
+
+        #region 导航
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+             UpdateGoods.Execute();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+
         }
         #endregion
 

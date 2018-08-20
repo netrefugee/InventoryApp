@@ -4,6 +4,7 @@ using ModuleSetting.Services;
 using ModuleSetting.Views;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Windows;
 
 namespace ModuleSetting.ViewModels
 {
-    public class SupplierViewModel : BindableBase
+    public class SupplierViewModel : BindableBase, INavigationAware
     {
         public SupplierViewModel()
         {
@@ -166,6 +167,28 @@ namespace ModuleSetting.ViewModels
             {
                 ExecuteUpdateSupplierAccounts(CurrentSupplier);
             }
+        }
+        #endregion
+
+        /// ****************************************************
+        ///                        导航
+        /// ****************************************************
+
+        #region 导航
+
+        public void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            UpdateSuppliers.Execute();
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext)
+        {
+            return false;
+        }
+
+        public void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+
         }
         #endregion
 

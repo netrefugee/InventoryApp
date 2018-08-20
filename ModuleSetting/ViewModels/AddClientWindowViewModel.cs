@@ -40,7 +40,7 @@ namespace ModuleSetting.ViewModels
                 if (dbDataService.isExistClient(Client))
                 {
                     DXMessageBox.Show($"添加失败,已存在姓名为:{Client.姓名}的客户");
-                    Window.DialogResult = false;
+                    
                     return;
                 }
                 else

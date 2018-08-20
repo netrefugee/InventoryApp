@@ -42,7 +42,7 @@ namespace ModuleSetting.ViewModels
                 if (dbDataService.isExistFarmer(Farmer))
                 {
                     DevExpress.Xpf.Core.DXMessageBox.Show($"添加失败,已存在姓名为:{Farmer.姓名}的农户");
-                    Window.DialogResult = false;
+                    
                     return;
                 }
                 else

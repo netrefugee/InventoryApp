@@ -2,12 +2,15 @@
 using InventoryApp.Services;
 using InventoryApp.Views;
 using LinqToDB;
+ 
 using Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
@@ -25,16 +28,32 @@ namespace InventoryApp.ViewModels
             NavigateCommand = new DelegateCommand<string>(Navigate);
             TestCommand = new DelegateCommand<string>(Test);
 
+            Items = new ObservableCollection<HamburgerMenuItemViewModel>();
+            Items.Add(new HamburgerMenuItemViewModel("进货", "PurchaseView"));
+            Items.Add(new HamburgerMenuItemViewModel("零售", "RetailView"));
+            Items.Add(new HamburgerMenuItemViewModel("批发", "WholesaleView"));
+            Items.Add(new HamburgerMenuItemViewModel("农户设置", "FarmerView"));
+            Items.Add(new HamburgerMenuItemViewModel("商品设置", "GoodsView"));
+            Items.Add(new HamburgerMenuItemViewModel("客户设置", "ClientView"));
+            Items.Add(new HamburgerMenuItemViewModel("供应商设置", "SupplierView"));
+            Items.Add(new HamburgerMenuItemViewModel("日志", "LoggerView"));
+
         }
 
         // 标题
-        private string _title = "Prism Unity Application";
+        private string _title = "prism";
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
 
+        private ObservableCollection<HamburgerMenuItemViewModel> items;
+        public ObservableCollection<HamburgerMenuItemViewModel> Items
+        {
+            get { return items; }
+            set { SetProperty(ref items, value); }
+        }
 
 
         // 导航命令
@@ -45,30 +64,13 @@ namespace InventoryApp.ViewModels
             {
                 DXSplashScreen.Show(typeof(NavigateSplashScreen));
                 _regionManager.RequestNavigate("ContentRegion", navigatePath, NavigationComplete);
+
             }
         }
         // 导航完成
         private void NavigationComplete(NavigationResult result)
         {
-            switch (result.Context.Uri.ToString())
-            {
-                case "ClientView":
-                    ((ModuleSetting.ViewModels.ClientViewModel)(((ModuleSetting.Views.ClientView)result.Context
-                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).UpdateClients.Execute();
-                    break;
-                case "FarmerView":
-                    ((ModuleSetting.ViewModels.FarmerViewModel)(((ModuleSetting.Views.FarmerView)result.Context
-                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).RefreshFarmers.Execute();
-                    break;
-                case "GoodsView":
-                    ((ModuleSetting.ViewModels.GoodsViewModel)(((ModuleSetting.Views.GoodsView)result.Context
-                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).UpdateGoods.Execute();
-                    break;
-                case "SupplierView":
-                    ((ModuleSetting.ViewModels.SupplierViewModel)(((ModuleSetting.Views.SupplierView)result.Context
-                                .NavigationService.Region.ActiveViews.FirstOrDefault()).DataContext)).UpdateSuppliers.Execute();
-                    break;
-            }
+
             DXSplashScreen.Close();
         }
 
@@ -96,4 +98,21 @@ namespace InventoryApp.ViewModels
         }
 
     }
+    public class HamburgerMenuItemViewModel
+    {
+        public string Caption { get; set; }
+        public string CommandParameter { get; set; }
+        public string Icon { get; set; }
+
+
+        public HamburgerMenuItemViewModel(string caption, string commandParameter)
+        {
+            CommandParameter = commandParameter;
+            Caption = caption;
+            Icon = "../icon/"+CommandParameter + ".png";
+           
+        }
+
+    }
+
 }

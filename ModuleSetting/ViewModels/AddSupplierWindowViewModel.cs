@@ -38,8 +38,8 @@ namespace ModuleSetting.ViewModels
             {
                 if (dbDataService.isExistSupplier(Supplier))
                 {
-                    DevExpress.Xpf.Core.DXMessageBox.Show($"添加失败,已存在姓名为:{Supplier.供应商名称}的供应商");
-                    Window.DialogResult = false;
+                    DevExpress.Xpf.Core.DXMessageBox.Show($"添加失败,已存在名称为:{Supplier.供应商名称}的供应商");
+                 
                     return;
                 }
                 else

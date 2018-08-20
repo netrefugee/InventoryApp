@@ -35,8 +35,10 @@ namespace InventoryApp
             moduleCatalog.AddModule(typeof(ModuleWholesale.ModuleWholesaleModule));
             //moduleCatalog.AddModule(typeof(ModuleSellModule));
 
+            
+
         }
- 
+        
         //protected override IModuleCatalog CreateModuleCatalog()
         //{
         //    return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };

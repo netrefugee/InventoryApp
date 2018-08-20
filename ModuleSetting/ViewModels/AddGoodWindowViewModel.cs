@@ -123,7 +123,7 @@ namespace ModuleSetting.ViewModels
                 if (dbDataService.isExistGood(Good))
                 {
                     DXMessageBox.Show($"添加失败,已存在追溯码为:{Good.商品追溯码前11位}的商品");
-                    Window.DialogResult = false;
+                    
                     return;
                 }
                 else
