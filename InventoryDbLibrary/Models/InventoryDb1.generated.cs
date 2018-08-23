@@ -26,6 +26,7 @@ namespace Models
 		public ITable<Good>            Goods            { get { return this.GetTable<Good>(); } }
 		public ITable<Log>             Logs             { get { return this.GetTable<Log>(); } }
 		public ITable<Purchase>        Purchases        { get { return this.GetTable<Purchase>(); } }
+		public ITable<PurchaseOrder>   PurchaseOrders   { get { return this.GetTable<PurchaseOrder>(); } }
 		public ITable<Retail>          Retails          { get { return this.GetTable<Retail>(); } }
 		public ITable<Stock>           Stocks           { get { return this.GetTable<Stock>(); } }
 		public ITable<Supplier>        Suppliers        { get { return this.GetTable<Supplier>(); } }
@@ -135,6 +136,16 @@ namespace Models
 		[Column,        Nullable] public double? 箱重量       { get; set; } // real
 		[Column,        Nullable] public double? 瓶重量       { get; set; } // real
 		[Column,        Nullable] public string  农药登记证号    { get; set; } // text(max)
+
+		#region Associations
+
+		/// <summary>
+		/// FK_purchase_0_0_BackReference
+		/// </summary>
+		[Association(ThisKey="商品ID", OtherKey="商品ID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<Purchase> Purchases { get; set; }
+
+		#endregion
 	}
 
 	[Table("log")]
@@ -149,18 +160,61 @@ namespace Models
 	[Table("purchase")]
 	public partial class Purchase
 	{
-		[Column("purchaseID"), PrimaryKey, Identity] public long   PurchaseID   { get; set; } // integer
-		[Column("code"),       NotNull             ] public string Code         { get; set; } // text(max)
-		[Column("datatime"),   NotNull             ] public string Datatime     { get; set; } // text(max)
-		[Column("storeName"),  NotNull             ] public string StoreName    { get; set; } // text(max)
-		[Column("goodsID"),    NotNull             ] public long   GoodsID      { get; set; } // integer
-		[Column(),             NotNull             ] public double RealPrice    { get; set; } // real
-		[Column(),             NotNull             ] public double NumBigUnit   { get; set; } // real
-		[Column(),             NotNull             ] public long   NumSmallUnit { get; set; } // integer
-		[Column(),             NotNull             ] public double SumPrice     { get; set; } // real
-		[Column("isReturn"),   NotNull             ] public long   IsReturn     { get; set; } // integer
-		[Column("supplierID"), NotNull             ] public long   SupplierID   { get; set; } // integer
-		[Column("payee"),      NotNull             ] public string Payee        { get; set; } // text(max)
+		[PrimaryKey, Identity   ] public long   进货单明细ID { get; set; } // integer
+		[Column,     NotNull    ] public long   进货单ID   { get; set; } // integer
+		[Column,     NotNull    ] public long   商品ID    { get; set; } // integer
+		[Column,     NotNull    ] public long   数量      { get; set; } // integer
+		[Column,        Nullable] public string 当前条形码   { get; set; } // text(max)
+		[Column,        Nullable] public string 备注      { get; set; } // text(max)
+		[Column,     NotNull    ] public double 单价      { get; set; } // real
+
+		#region Associations
+
+		/// <summary>
+		/// FK_purchase_1_0
+		/// </summary>
+		[Association(ThisKey="进货单ID", OtherKey="进货单ID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_1_0", BackReferenceName="Purchases")]
+		public PurchaseOrder 进货单 { get; set; }
+
+		/// <summary>
+		/// FK_purchase_0_0
+		/// </summary>
+		[Association(ThisKey="商品ID", OtherKey="商品ID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchase_0_0", BackReferenceName="Purchases")]
+		public Good 商品 { get; set; }
+
+		#endregion
+	}
+
+	[Table("purchaseOrder")]
+	public partial class PurchaseOrder
+	{
+		[PrimaryKey, Identity   ] public long   进货单ID { get; set; } // integer
+		[Column,     NotNull    ] public string 编号    { get; set; } // text(max)
+		[Column,     NotNull    ] public string 日期    { get; set; } // text(max)
+		[Column,     NotNull    ] public double 应收    { get; set; } // real
+		[Column,     NotNull    ] public string 销赊退   { get; set; } // text(max)
+		[Column,     NotNull    ] public long   供应商ID { get; set; } // integer
+		[Column,        Nullable] public string 备注    { get; set; } // text(max)
+		[Column,     NotNull    ] public string 制单人   { get; set; } // text(max)
+		[Column,     NotNull    ] public string 商店名称  { get; set; } // text(max)
+		[Column,        Nullable] public string 商店电话  { get; set; } // text(max)
+		[Column,     NotNull    ] public double 实收    { get; set; } // real
+
+		#region Associations
+
+		/// <summary>
+		/// FK_purchase_1_0_BackReference
+		/// </summary>
+		[Association(ThisKey="进货单ID", OtherKey="进货单ID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<Purchase> Purchases { get; set; }
+
+		/// <summary>
+		/// FK_purchaseOrder_0_0
+		/// </summary>
+		[Association(ThisKey="供应商ID", OtherKey="供应商ID", CanBeNull=false, Relationship=Relationship.ManyToOne, KeyName="FK_purchaseOrder_0_0", BackReferenceName="PurchaseOrders")]
+		public Supplier 供应商 { get; set; }
+
+		#endregion
 	}
 
 	[Table("retail")]
@@ -207,6 +261,12 @@ namespace Models
 		[Column,        Nullable] public string 备注      { get; set; } // text(max)
 
 		#region Associations
+
+		/// <summary>
+		/// FK_purchaseOrder_0_0_BackReference
+		/// </summary>
+		[Association(ThisKey="供应商ID", OtherKey="供应商ID", CanBeNull=true, Relationship=Relationship.OneToMany, IsBackReference=true)]
+		public IEnumerable<PurchaseOrder> PurchaseOrders { get; set; }
 
 		/// <summary>
 		/// FK_supplierAccount_0_0_BackReference
@@ -297,10 +357,16 @@ namespace Models
 				t.LogID == LogID);
 		}
 
-		public static Purchase Find(this ITable<Purchase> table, long PurchaseID)
+		public static Purchase Find(this ITable<Purchase> table, long 进货单明细ID)
 		{
 			return table.FirstOrDefault(t =>
-				t.PurchaseID == PurchaseID);
+				t.进货单明细ID == 进货单明细ID);
+		}
+
+		public static PurchaseOrder Find(this ITable<PurchaseOrder> table, long 进货单ID)
+		{
+			return table.FirstOrDefault(t =>
+				t.进货单ID == 进货单ID);
 		}
 
 		public static Retail Find(this ITable<Retail> table, long RetailID)

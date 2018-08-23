@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <!--    GridSplitter -->
+    <Style TargetType="{x:Type GridSplitter}"  >
+        <Setter Property="Width" Value="6"/>
+        <Setter Property="Margin" Value="1,0,1,0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+ 
+    <!--    Button -->
+    <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Margin" Value="4,2,4,2"/>
+        <!--<Setter Property="Width"  Value="100"/>-->
+    </Style>
+
+    <!--    DatePicker -->
+    <Style TargetType="{x:Type DatePicker}"  BasedOn="{StaticResource MaterialDesignDatePicker}">
+        <Setter Property="Margin" Value="4,2,4,2"/>
+        <Setter Property="Language"  Value="zh-CN"/>
+
+    </Style>
+    
+    <!--DataGrid单元格选中样式-->
+    <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

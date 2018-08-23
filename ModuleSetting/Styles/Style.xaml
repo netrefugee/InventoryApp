@@ -18,7 +18,13 @@
         <Setter Property="FontSize" Value="16"/>
         <!--<Setter Property="Width" Value="100"/>-->
     </Style>
-    
+
+    <!--    DatePicker -->
+    <Style TargetType="{x:Type DatePicker}"  BasedOn="{StaticResource MaterialDesignDatePicker}">
+        <Setter Property="Margin" Value="4,2,4,2"/>
+        <Setter Property="Language"  Value="zh-CN"/>
+    </Style>
+
     <!--    TextBlock -->
     <Style TargetType="{x:Type TextBlock}"  >
         <Setter Property="Margin" Value="4,2,4,2"/>
@@ -28,7 +34,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <!--    TextBlock -->
+    <!--    GridSplitter -->
     <Style TargetType="{x:Type GridSplitter}"  >
         <Setter Property="Width" Value="6"/>
         <Setter Property="Margin" Value="1,0,1,0"/>
@@ -39,7 +45,7 @@
     <!--    Button -->
     <Style TargetType="{x:Type Button}"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Margin" Value="4,2,4,2"/>
-        <Setter Property="Width"  Value="100"/>
+        <!--<Setter Property="Width"  Value="100"/>-->
     </Style>
     
     <!--DataGrid单元格选中样式-->
